@@ -148,7 +148,7 @@ footer {
 .lang-switcher-btn {
     background: none;
     border: none;
-    color: white;
+    color: #ffffff !important;
     font-size: 1em;
     font-weight: 500;
     cursor: pointer;
@@ -166,6 +166,7 @@ footer {
 
 .lang-switcher-btn i {
     font-size: 1.2em;
+    color: #ffffff !important;
 }
 
 .language-dropdown {
@@ -186,7 +187,7 @@ footer {
 }
 
 .language-dropdown a {
-    color: white;
+    color: #ffffff !important;
     padding: 10px 15px;
     text-decoration: none;
     display: block;
