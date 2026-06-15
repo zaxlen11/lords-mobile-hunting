@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lords Mobile Hub - Training Calculator</title>
+    <title id="pageTitle" data-page-key="training_calculator"></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .training-container {
             background: rgba(30, 60, 114, 0.15);
@@ -279,30 +280,41 @@
 <body>
 
 <header>
-    <div class="logo">Lords Mobile Hub</div>
+    <div class="language-switcher">
+        <button class="lang-switcher-btn" id="langSwitcherBtn" onclick="document.getElementById('languageDropdown').classList.toggle('show')"><i class="fas fa-globe"></i> English</button>
+        <div class="language-dropdown" id="languageDropdown">
+            <a href="#" class="lang-option" data-lang="en" onclick="setLanguage('en'); document.getElementById('languageDropdown').classList.remove('show');">English</a>
+            <a href="#" class="lang-option" data-lang="es" onclick="setLanguage('es'); document.getElementById('languageDropdown').classList.remove('show');">Español</a>
+            <a href="#" class="lang-option" data-lang="ja" onclick="setLanguage('ja'); document.getElementById('languageDropdown').classList.remove('show');">日本語</a>
+            <a href="#" class="lang-option" data-lang="ar" onclick="setLanguage('ar'); document.getElementById('languageDropdown').classList.remove('show');">العربية</a>
+            <a href="#" class="lang-option" data-lang="vi" onclick="setLanguage('vi'); document.getElementById('languageDropdown').classList.remove('show');">Tiếng Việt</a>
+            <a href="#" class="lang-option" data-lang="zh" onclick="setLanguage('zh'); document.getElementById('languageDropdown').classList.remove('show');">中文</a>
+        </div>
+    </div>
+    <div class="logo" data-translate-key="app_title">Lords Mobile Hub</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <nav class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="calculator.html">Speedup Calculator</a>
-        <a href="hunting.html">Monster Hunting</a>
-        <a href="training.html">Training Calculator</a>
+        <a href="index.html" data-translate-key="home">Home</a>
+        <a href="calculator.html" data-translate-key="speedup_calculator">Speedup Calculator</a>
+        <a href="hunting.html" data-translate-key="monster_hunting">Monster Hunting</a>
+        <a href="training.html" data-translate-key="training_calculator">Training Calculator</a>
     </nav>
 </header>
 
 <div class="container">
-    <div class="section-title">Training Calculator</div>
+    <div class="section-title" data-translate-key="training_calculator">Training Calculator</div>
     
     <div class="training-container">
         <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(0)">No. of Speed Ups</button>
-            <button class="tab-btn" onclick="switchTab(1)">No. of Troops</button>
+            <button class="tab-btn active" onclick="switchTab(0)" data-translate-key="tab_speedups">No. of Speed Ups</button>
+            <button class="tab-btn" onclick="switchTab(1)" data-translate-key="tab_troops">No. of Troops</button>
         </div>
 
         <!-- Tab 1: Calculate Speed Ups -->
         <div class="tab-content active">
             <div class="input-group">
-                <label class="input-label">Troop Tier</label>
+                <label class="input-label" data-translate-key="troop_tier">Troop Tier</label>
                 <div class="button-group" id="tierGroup1">
                     <button class="btn-toggle selected" onclick="selectTier(this, 'T1', 0)">T1</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T2', 0)">T2</button>
@@ -312,29 +324,31 @@
             </div>
 
             <div class="input-group">
-                <label class="input-label">Troop Type</label>
+                <label class="input-label" data-translate-key="troop_type">Troop Type</label>
                 <div class="button-group" id="typeGroup1">
-                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 0)">Infantry</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 0)">Ranged</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 0)">Cavalry</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 0)">Siege</button>
+                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 0)" data-translate-key="infantry">Infantry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 0)" data-translate-key="ranged">Ranged</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 0)" data-translate-key="cavalry">Cavalry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 0)" data-translate-key="siege">Siege</button>
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label">Number of Troops</label>
-                    <input type="number" class="input-field" id="troops1" placeholder="Enter number of troops" value="1000" min="0">
+                    <label class="input-label" data-translate-key="number_of_troops">Number of Troops</label>
+                    <input type="number" class="input-field" id="troops1" data-translate-placeholder-key="enter_troops_placeholder" value="1000" min="0">
                 </div>
                 <div class="input-group">
-                    <label class="input-label">Training Speed (%)</label>
+                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)
+                    </label>
                     <input type="number" class="input-field" id="trainingSpeed1" placeholder="0" value="0" min="0" max="1000">
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label">Subsidy (%)</label>
+                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)
+                    </label>
                     <input type="number" class="input-field" id="subsidy1" placeholder="0" value="0" min="0" max="100">
                 </div>
             </div>
@@ -343,7 +357,7 @@
         <!-- Tab 2: Calculate Troops -->
         <div class="tab-content">
             <div class="input-group">
-                <label class="input-label">Troop Tier</label>
+                <label class="input-label" data-translate-key="troop_tier">Troop Tier</label>
                 <div class="button-group" id="tierGroup2">
                     <button class="btn-toggle selected" onclick="selectTier(this, 'T1', 1)">T1</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T2', 1)">T2</button>
@@ -353,29 +367,31 @@
             </div>
 
             <div class="input-group">
-                <label class="input-label">Troop Type</label>
+                <label class="input-label" data-translate-key="troop_type">Troop Type</label>
                 <div class="button-group" id="typeGroup2">
-                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 1)">Infantry</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 1)">Ranged</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 1)">Cavalry</button>
-                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 1)">Siege</button>
+                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 1)" data-translate-key="infantry">Infantry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 1)" data-translate-key="ranged">Ranged</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 1)" data-translate-key="cavalry">Cavalry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 1)" data-translate-key="siege">Siege</button>
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label">Speed Ups (format: 0d4h10m)</label>
-                    <input type="text" class="input-field" id="speedups2" placeholder="e.g., 1d2h30m" value="0d4h10m">
+                    <label class="input-label" data-translate-key="speedups_format">Speed Ups (format: 0d4h10m)</label>
+                    <input type="text" class="input-field" id="speedups2" data-translate-placeholder-key="speedups_placeholder" value="0d4h10m">
                 </div>
                 <div class="input-group">
-                    <label class="input-label">Training Speed (%)</label>
+                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)
+                    </label>
                     <input type="number" class="input-field" id="trainingSpeed2" placeholder="0" value="0" min="0" max="1000">
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label">Subsidy (%)</label>
+                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)
+                    </label>
                     <input type="number" class="input-field" id="subsidy2" placeholder="0" value="0" min="0" max="100">
                 </div>
             </div>
@@ -383,59 +399,57 @@
 
         <!-- Action Buttons -->
         <div class="button-actions">
-            <button class="btn-calculate" onclick="calculate()">Calculate</button>
-            <button class="btn-clear" onclick="clearAll()">Clear All</button>
+            <button class="btn-calculate" onclick="calculate()" data-translate-key="calculate">Calculate</button>
+            <button class="btn-clear" onclick="clearAll()" data-translate-key="clear_all">Clear All</button>
         </div>
 
         <!-- Results Section -->
         <div class="results-section" id="resultsSection">
-            <div class="results-title">Results</div>
+            <div class="results-title" data-translate-key="results">Results</div>
             <div class="results-grid">
                 <div class="result-item gems">
-                    <div class="result-label">Gems Required</div>
+                    <div class="result-label" data-translate-key="gems_required">Gems Required</div>
                     <div class="result-value" id="gemsResult">0</div>
                 </div>
                 <div class="result-item speedup">
-                    <div class="result-label">Speed Ups Required</div>
-                    <div class="result-value" id="speedupResult">0d0h0m</div>
+                    <div class="result-label" data-translate-key="speedups_required">Speed Ups Required</div>
+                    <div class="result-value" id="speedupResult">0d 0h 0m</div>
                 </div>
                 <div class="result-item food">
-                    <div class="result-label">Food Required</div>
+                    <div class="result-label" data-translate-key="food_required">Food Required</div>
                     <div class="result-value" id="foodResult">0</div>
                 </div>
                 <div class="result-item wood">
-                    <div class="result-label">Timber (Wood) Required</div>
+                    <div class="result-label" data-translate-key="timber_required">Timber (Wood) Required</div>
                     <div class="result-value" id="woodResult">0</div>
                 </div>
                 <div class="result-item stone">
-                    <div class="result-label">Stones Required</div>
+                    <div class="result-label" data-translate-key="stones_required">Stones Required</div>
                     <div class="result-value" id="stoneResult">0</div>
                 </div>
                 <div class="result-item ore">
-                    <div class="result-label">Ore Required</div>
+                    <div class="result-label" data-translate-key="ore_required">Ore Required</div>
                     <div class="result-value" id="oreResult">0</div>
                 </div>
                 <div class="result-item gold">
-                    <div class="result-label">Gold Required</div>
+                    <div class="result-label" data-translate-key="gold_required">Gold Required</div>
                     <div class="result-value" id="goldResult">0</div>
                 </div>
             </div>
-            <div class="info-text">* All calculations based on current input values</div>
+            <div class="info-text" data-translate-key="calculation_info">* All calculations based on current input values</div>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2026 Lords Mobile Hub | jash0077</p>
-    </footer>
 </div>
 
-<script>
-    // State management
-    let currentTab = 0;
-    let selectedTier = ['T1', 'T1'];
-    let selectedType = ['Infantry', 'Infantry'];
+<footer>
+    <p data-translate-key="footer_text">&copy; 2026 Lords Mobile Hub | jash0077</p>
+</footer>
 
-    // Base data
+<script>
+    let currentTab = 0; // 0 for Speed Ups, 1 for Troops
+    let selectedTier = ['T1', 'T1']; // For tab 1 and tab 2 respectively
+    let selectedType = ['Infantry', 'Infantry']; // For tab 1 and tab 2 respectively
+
     const baseData = {
         T1: { food: 30, wood: 30, stone: 30, ore: 30, gold: 0, time: 15 },
         T2: { food: 60, wood: 60, stone: 60, ore: 60, gold: 3, time: 30 },
@@ -443,47 +457,40 @@
         T4: { food: 700, wood: 700, stone: 700, ore: 700, gold: 350, time: 120 }
     };
 
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
-
     function switchTab(tabIndex) {
         currentTab = tabIndex;
-        const tabs = document.querySelectorAll('.tab-content');
-        const buttons = document.querySelectorAll('.tab-btn');
-        
-        tabs.forEach((tab, i) => {
-            tab.classList.toggle('active', i === tabIndex);
+        document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+            btn.classList.toggle('active', index === tabIndex);
         });
-        
-        buttons.forEach((btn, i) => {
-            btn.classList.toggle('active', i === tabIndex);
+        document.querySelectorAll('.tab-content').forEach((content, index) => {
+            content.classList.toggle('active', index === tabIndex);
         });
+        document.getElementById('resultsSection').classList.remove('show');
     }
 
     function selectTier(button, tier, tabIndex) {
-        selectedTier[tabIndex] = tier;
-        const group = document.getElementById(`tierGroup${tabIndex + 1}`);
-        group.querySelectorAll('.btn-toggle').forEach(btn => {
+        document.querySelectorAll(`#tierGroup${tabIndex + 1} .btn-toggle`).forEach(btn => {
             btn.classList.remove('selected');
         });
         button.classList.add('selected');
+        selectedTier[tabIndex] = tier;
     }
 
     function selectType(button, type, tabIndex) {
-        selectedType[tabIndex] = type;
-        const group = document.getElementById(`typeGroup${tabIndex + 1}`);
-        group.querySelectorAll('.btn-toggle').forEach(btn => {
+        document.querySelectorAll(`#typeGroup${tabIndex + 1} .btn-toggle`).forEach(btn => {
             btn.classList.remove('selected');
         });
         button.classList.add('selected');
+        selectedType[tabIndex] = type;
     }
 
-    function formatTime(seconds) {
-        const days = Math.floor(seconds / 86400);
-        const hours = Math.floor((seconds % 86400) / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        return `${days}d${hours}h${minutes}m`;
+    function formatTime(totalSeconds) {
+        const days = Math.floor(totalSeconds / (24 * 3600));
+        totalSeconds %= (24 * 3600);
+        const hours = Math.floor(totalSeconds / 3600);
+        totalSeconds %= 3600;
+        const minutes = Math.floor(totalSeconds / 60);
+        return `${days}d ${hours}h ${minutes}m`;
     }
 
     function parseTime(timeStr) {
@@ -522,7 +529,7 @@
                 const subsidy = parseFloat(document.getElementById('subsidy1').value) || 0;
                 
                 if (troops <= 0) {
-                    alert('Please enter a valid number of troops');
+                    alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_valid_troops"]);
                     return;
                 }
                 
@@ -584,7 +591,7 @@
                 const troops = Math.floor(speedupSeconds * (1 + trainingSpeed / 100) / baseTime);
                 
                 if (troops <= 0) {
-                    alert('Invalid speed up time format. Use format like: 1d2h30m');
+                    alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_invalid_speedup_format"]);
                     return;
                 }
                 
@@ -622,7 +629,7 @@
             
             resultsSection.classList.add('show');
         } catch (error) {
-            alert('Error in calculation. Please check your inputs.');
+            alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_calculation_error"]);
             console.error(error);
         }
     }
@@ -660,6 +667,7 @@
         document.getElementById('resultsSection').classList.remove('show');
     }
 </script>
+<script src="translations.js"></script>
 
 </body>
-</html>
+</html>"""

@@ -1,0 +1,521 @@
+const translations = {
+    "en": {
+        "app_title": "Lords Mobile Hub",
+        "home": "Home",
+        "speedup_calculator": "Speedup Calculator",
+        "monster_hunting": "Monster Hunting",
+        "training_calculator": "Training Calculator",
+        "welcome_title": "Welcome to Lords Mobile Hub",
+        "welcome_description": "Your one-stop destination for essential tools and guides to dominate the kingdom.",
+        "available_tools": "Available Tools",
+        "speedup_card_description": "Calculate your total speedups in minutes, hours, and days with our easy-to-use tool.",
+        "hunting_card_description": "View the best hero lineups for every monster to maximize your hunting efficiency.",
+        "training_card_description": "Calculate resources needed to train troops for each tier and type.",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "total_time": "Total Time",
+        "minutes": "Minutes",
+        "hours": "Hours",
+        "days": "Days",
+        "monster_hunting_guides": "Monster Hunting Guides",
+        "tab_speedups": "No. of Speed Ups",
+        "tab_troops": "No. of Troops",
+        "troop_tier": "Troop Tier",
+        "troop_type": "Troop Type",
+        "infantry": "Infantry",
+        "ranged": "Ranged",
+        "cavalry": "Cavalry",
+        "siege": "Siege",
+        "number_of_troops": "Number of Troops",
+        "enter_troops_placeholder": "Enter number of troops",
+        "training_speed": "Training Speed (%)",
+        "subsidy": "Subsidy (%)",
+        "speedups_format": "Speed Ups (format: 0d4h10m)",
+        "speedups_placeholder": "e.g., 1d2h30m",
+        "calculate": "Calculate",
+        "clear_all": "Clear All",
+        "results": "Results",
+        "gems_required": "Gems Required",
+        "speedups_required": "Speed Ups Required",
+        "food_required": "Food Required",
+        "timber_required": "Timber (Wood) Required",
+        "stones_required": "Stones Required",
+        "ore_required": "Ore Required",
+        "gold_required": "Gold Required",
+        "calculation_info": "* All calculations based on current input values",
+        "alert_valid_troops": "Please enter a valid number of troops",
+        "alert_invalid_speedup_format": "Invalid speed up time format. Use format like: 1d2h30m",
+        "alert_calculation_error": "Error in calculation. Please check your inputs.",
+        "monster_necrosis": "Necrosis",
+        "monster_bon_appeti": "Bon Appeti",
+        "monster_queen_bee": "Queen Bee",
+        "monster_mega_maggot": "Mega Maggot",
+        "monster_hootclaw": "Hootclaw",
+        "monster_tidal_titan": "Tidal Titan",
+        "monster_mecha_trojan": "Mecha Trojan",
+        "monster_grim_reaper": "Grim Reaper",
+        "monster_blackwing": "Blackwing",
+        "monster_snow_beast": "Snow Beast",
+        "monster_frostwing": "Frostwing",
+        "monster_voodoo_shaman": "Voodoo Shaman",
+        "monster_terrorthorn": "Terrorthorn",
+        "monster_serpent_gladiator": "Serpent Gladiator",
+        "monster_saberfang": "Saberfang",
+        "monster_noceros": "Noceros",
+        "monster_jade_wyrm": "Jade Wyrm",
+        "monster_hell_drider": "Hell Drider",
+        "monster_hardrox": "Hardrox",
+        "monster_gryphon": "Gryphon",
+        "monster_gawrilla": "Gawrilla",
+        "monster_gargantua": "Gargantua",
+        "monster_cottageroar": "Cottageroar",
+        "monster_arctic_flipper": "Arctic Flipper"
+    },
+    "es": {
+        "app_title": "Lords Mobile Hub",
+        "home": "Inicio",
+        "speedup_calculator": "Calculadora de Aceleradores",
+        "monster_hunting": "Caza de Monstruos",
+        "training_calculator": "Calculadora de Entrenamiento",
+        "welcome_title": "Bienvenido a Lords Mobile Hub",
+        "welcome_description": "Tu destino único para herramientas y guías esenciales para dominar el reino.",
+        "available_tools": "Herramientas Disponibles",
+        "speedup_card_description": "Calcula tus aceleradores totales en minutos, horas y días con nuestra herramienta fácil de usar.",
+        "hunting_card_description": "Ve las mejores alineaciones de héroes para cada monstruo para maximizar tu eficiencia de caza.",
+        "training_card_description": "Calcula los recursos necesarios para entrenar tropas de cada nivel y tipo.",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "total_time": "Tiempo Total",
+        "minutes": "Minutos",
+        "hours": "Horas",
+        "days": "Días",
+        "monster_hunting_guides": "Guías de Caza de Monstruos",
+        "tab_speedups": "No. de Aceleradores",
+        "tab_troops": "No. de Tropas",
+        "troop_tier": "Nivel de Tropa",
+        "troop_type": "Tipo de Tropa",
+        "infantry": "Infantería",
+        "ranged": "A Distancia",
+        "cavalry": "Caballería",
+        "siege": "Asedio",
+        "number_of_troops": "Número de Tropas",
+        "enter_troops_placeholder": "Introduce el número de tropas",
+        "training_speed": "Velocidad de Entrenamiento (%)",
+        "subsidy": "Subsidio (%)",
+        "speedups_format": "Aceleradores (formato: 0d4h10m)",
+        "speedups_placeholder": "ej., 1d2h30m",
+        "calculate": "Calcular",
+        "clear_all": "Borrar Todo",
+        "results": "Resultados",
+        "gems_required": "Gemas Requeridas",
+        "speedups_required": "Aceleradores Requeridos",
+        "food_required": "Comida Requerida",
+        "timber_required": "Madera Requerida",
+        "stones_required": "Piedras Requeridas",
+        "ore_required": "Mineral Requerido",
+        "gold_required": "Oro Requerido",
+        "calculation_info": "* Todos los cálculos basados en los valores de entrada actuales",
+        "alert_valid_troops": "Por favor, introduce un número válido de tropas",
+        "alert_invalid_speedup_format": "Formato de tiempo de aceleración no válido. Usa el formato: 1d2h30m",
+        "alert_calculation_error": "Error en el cálculo. Por favor, revisa tus entradas.",
+        "monster_necrosis": "Necrosis",
+        "monster_bon_appeti": "Bon Appeti",
+        "monster_queen_bee": "Reina Abeja",
+        "monster_mega_maggot": "Mega Gusano",
+        "monster_hootclaw": "Garra Ululante",
+        "monster_tidal_titan": "Titán de Marea",
+        "monster_mecha_trojan": "Mecha Troyano",
+        "monster_grim_reaper": "Parca",
+        "monster_blackwing": "Ala Negra",
+        "monster_snow_beast": "Bestia de Nieve",
+        "monster_frostwing": "Ala Gélida",
+        "monster_voodoo_shaman": "Chamán Vudú",
+        "monster_terrorthorn": "Espina Terrorífica",
+        "monster_serpent_gladiator": "Gladiador Serpiente",
+        "monster_saberfang": "Colmillo de Sable",
+        "monster_noceros": "Noceros",
+        "monster_jade_wyrm": "Dragón de Jade",
+        "monster_hell_drider": "Drider Infernal",
+        "monster_hardrox": "Hardrox",
+        "monster_gryphon": "Grifo",
+        "monster_gawrilla": "Gawrilla",
+        "monster_gargantua": "Gargantúa",
+        "monster_cottageroar": "Rugido de Cabaña",
+        "monster_arctic_flipper": "Aleta Ártica"
+    },
+    "ja": {
+        "app_title": "ロードモバイルハブ",
+        "home": "ホーム",
+        "speedup_calculator": "時短計算機",
+        "monster_hunting": "魔獣討伐",
+        "training_calculator": "訓練計算機",
+        "welcome_title": "ロードモバイルハブへようこそ",
+        "welcome_description": "王国を支配するための必須ツールとガイドが揃ったワンストップの場所です。",
+        "available_tools": "利用可能なツール",
+        "speedup_card_description": "使いやすいツールで、合計時短を分、時間、日で計算します。",
+        "hunting_card_description": "各魔獣の最高のヒーロー編成を見て、討伐効率を最大化しましょう。",
+        "training_card_description": "各ティアとタイプの部隊を訓練するのに必要な資源を計算します。",
+        "footer_text": "&copy; 2026 ロードモバイルハブ | jash0077",
+        "total_time": "合計時間",
+        "minutes": "分",
+        "hours": "時間",
+        "days": "日",
+        "monster_hunting_guides": "魔獣討伐ガイド",
+        "tab_speedups": "時短の数",
+        "tab_troops": "部隊の数",
+        "troop_tier": "部隊ティア",
+        "troop_type": "部隊タイプ",
+        "infantry": "歩兵",
+        "ranged": "弓兵",
+        "cavalry": "騎兵",
+        "siege": "攻城兵器",
+        "number_of_troops": "部隊数",
+        "enter_troops_placeholder": "部隊数を入力",
+        "training_speed": "訓練速度 (%)",
+        "subsidy": "補助金 (%)",
+        "speedups_format": "時短 (形式: 0d4h10m)",
+        "speedups_placeholder": "例: 1d2h30m",
+        "calculate": "計算",
+        "clear_all": "すべてクリア",
+        "results": "結果",
+        "gems_required": "必要なジェム",
+        "speedups_required": "必要な時短",
+        "food_required": "必要な食料",
+        "timber_required": "必要な木材",
+        "stones_required": "必要な石材",
+        "ore_required": "必要な鉱石",
+        "gold_required": "必要なゴールド",
+        "calculation_info": "* すべての計算は現在の入力値に基づいています",
+        "alert_valid_troops": "有効な部隊数を入力してください",
+        "alert_invalid_speedup_format": "無効な時短形式です。1d2h30m の形式を使用してください",
+        "alert_calculation_error": "計算エラーです。入力を確認してください。",
+        "monster_necrosis": "ネクローシス",
+        "monster_bon_appeti": "ボンアペティ",
+        "monster_queen_bee": "クイーンビー",
+        "monster_mega_maggot": "メガマゴット",
+        "monster_hootclaw": "フートクロー",
+        "monster_tidal_titan": "タイダルタイタン",
+        "monster_mecha_trojan": "メカトロジャン",
+        "monster_grim_reaper": "グリムリーパー",
+        "monster_blackwing": "ブラックウィング",
+        "monster_snow_beast": "スノービースト",
+        "monster_frostwing": "フロストウィング",
+        "monster_voodoo_shaman": "ブードゥーシャーマン",
+        "monster_terrorthorn": "テラーソーン",
+        "monster_serpent_gladiator": "サーペントグラディエーター",
+        "monster_saberfang": "セイバーファング",
+        "monster_noceros": "ノセロス",
+        "monster_jade_wyrm": "ジェイドワーム",
+        "monster_hell_drider": "ヘルドライダー",
+        "monster_hardrox": "ハードロックス",
+        "monster_gryphon": "グリフォン",
+        "monster_gawrilla": "ガウリラ",
+        "monster_gargantua": "ガルガンチュア",
+        "monster_cottageroar": "コテージロア",
+        "monster_arctic_flipper": "アークティックフリッパー"
+    },
+    "ar": {
+        "app_title": "لوردس موبايل هاب",
+        "home": "الرئيسية",
+        "speedup_calculator": "حاسبة التسريع",
+        "monster_hunting": "صيد الوحوش",
+        "training_calculator": "حاسبة التدريب",
+        "welcome_title": "مرحبًا بك في لوردس موبايل هاب",
+        "welcome_description": "وجهتك الشاملة للأدوات والإرشادات الأساسية للسيطرة على المملكة.",
+        "available_tools": "الأدوات المتاحة",
+        "speedup_card_description": "احسب إجمالي تسريعاتك بالدقائق والساعات والأيام باستخدام أداتنا سهلة الاستخدام.",
+        "hunting_card_description": "شاهد أفضل تشكيلات الأبطال لكل وحش لزيادة كفاءة صيدك.",
+        "training_card_description": "احسب الموارد اللازمة لتدريب القوات لكل مستوى ونوع.",
+        "footer_text": "&copy; 2026 لوردس موبايل هاب | jash0077",
+        "total_time": "الوقت الإجمالي",
+        "minutes": "دقائق",
+        "hours": "ساعات",
+        "days": "أيام",
+        "monster_hunting_guides": "أدلة صيد الوحوش",
+        "tab_speedups": "عدد التسريعات",
+        "tab_troops": "عدد القوات",
+        "troop_tier": "مستوى القوات",
+        "troop_type": "نوع القوات",
+        "infantry": "مشاة",
+        "ranged": "رماة",
+        "cavalry": "فرسان",
+        "siege": "آلات حصار",
+        "number_of_troops": "عدد القوات",
+        "enter_troops_placeholder": "أدخل عدد القوات",
+        "training_speed": "سرعة التدريب (%)",
+        "subsidy": "الدعم (%)",
+        "speedups_format": "تسريعات (التنسيق: 0d4h10m)",
+        "speedups_placeholder": "مثال: 1d2h30m",
+        "calculate": "حساب",
+        "clear_all": "مسح الكل",
+        "results": "النتائج",
+        "gems_required": "الأحجار الكريمة المطلوبة",
+        "speedups_required": "التسريعات المطلوبة",
+        "food_required": "الطعام المطلوب",
+        "timber_required": "الخشب المطلوب",
+        "stones_required": "الأحجار المطلوبة",
+        "ore_required": "الخام المطلوب",
+        "gold_required": "الذهب المطلوب",
+        "calculation_info": "* جميع الحسابات مبنية على قيم الإدخال الحالية",
+        "alert_valid_troops": "الرجاء إدخال عدد صحيح من القوات",
+        "alert_invalid_speedup_format": "تنسيق وقت التسريع غير صالح. استخدم التنسيق: 1d2h30m",
+        "alert_calculation_error": "خطأ في الحساب. يرجى التحقق من مدخلاتك.",
+        "monster_necrosis": "النخر",
+        "monster_bon_appeti": "بون أبيتي",
+        "monster_queen_bee": "ملكة النحل",
+        "monster_mega_maggot": "اليرقة الضخمة",
+        "monster_hootclaw": "مخلب البومة",
+        "monster_tidal_titan": "العملاق المدّي",
+        "monster_mecha_trojan": "حصان طروادة الميكانيكي",
+        "monster_grim_reaper": "الحاصد القاتم",
+        "monster_blackwing": "الجناح الأسود",
+        "monster_snow_beast": "وحش الثلج",
+        "monster_frostwing": "الجناح الجليدي",
+        "monster_voodoo_shaman": "ساحر الفودو",
+        "monster_terrorthorn": "شوكة الرعب",
+        "monster_serpent_gladiator": "المصارع الثعباني",
+        "monster_saberfang": "ناب السيف",
+        "monster_noceros": "نوسيروس",
+        "monster_jade_wyrm": "التنين اليشمي",
+        "monster_hell_drider": "عنكبوت الجحيم",
+        "monster_hardrox": "هاردروكس",
+        "monster_gryphon": "غريفون",
+        "monster_gawrilla": "غاوريلا",
+        "monster_gargantua": "غارغانتوا",
+        "monster_cottageroar": "زئير الكوخ",
+        "monster_arctic_flipper": "زعنفة القطب الشمالي"
+    },
+    "vi": {
+        "app_title": "Lords Mobile Hub",
+        "home": "Trang chủ",
+        "speedup_calculator": "Máy tính tăng tốc",
+        "monster_hunting": "Săn quái",
+        "training_calculator": "Máy tính huấn luyện",
+        "welcome_title": "Chào mừng đến với Lords Mobile Hub",
+        "welcome_description": "Điểm đến duy nhất của bạn cho các công cụ và hướng dẫn thiết yếu để thống trị vương quốc.",
+        "available_tools": "Công cụ có sẵn",
+        "speedup_card_description": "Tính tổng thời gian tăng tốc của bạn theo phút, giờ và ngày với công cụ dễ sử dụng của chúng tôi.",
+        "hunting_card_description": "Xem đội hình anh hùng tốt nhất cho mỗi quái vật để tối đa hóa hiệu quả săn bắn của bạn.",
+        "training_card_description": "Tính toán tài nguyên cần thiết để huấn luyện quân đội cho mỗi cấp và loại.",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "total_time": "Tổng thời gian",
+        "minutes": "Phút",
+        "hours": "Giờ",
+        "days": "Ngày",
+        "monster_hunting_guides": "Hướng dẫn săn quái",
+        "tab_speedups": "Số lượng tăng tốc",
+        "tab_troops": "Số lượng quân đội",
+        "troop_tier": "Cấp quân đội",
+        "troop_type": "Loại quân đội",
+        "infantry": "Bộ binh",
+        "ranged": "Cung thủ",
+        "cavalry": "Kỵ binh",
+        "siege": "Xe công thành",
+        "number_of_troops": "Số lượng quân đội",
+        "enter_troops_placeholder": "Nhập số lượng quân đội",
+        "training_speed": "Tốc độ huấn luyện (%)",
+        "subsidy": "Trợ cấp (%)",
+        "speedups_format": "Tăng tốc (định dạng: 0d4h10m)",
+        "speedups_placeholder": "ví dụ: 1d2h30m",
+        "calculate": "Tính toán",
+        "clear_all": "Xóa tất cả",
+        "results": "Kết quả",
+        "gems_required": "Đá quý cần thiết",
+        "speedups_required": "Tăng tốc cần thiết",
+        "food_required": "Thức ăn cần thiết",
+        "timber_required": "Gỗ cần thiết",
+        "stones_required": "Đá cần thiết",
+        "ore_required": "Quặng cần thiết",
+        "gold_required": "Vàng cần thiết",
+        "calculation_info": "* Tất cả các tính toán dựa trên giá trị đầu vào hiện tại",
+        "alert_valid_troops": "Vui lòng nhập số lượng quân đội hợp lệ",
+        "alert_invalid_speedup_format": "Định dạng thời gian tăng tốc không hợp lệ. Sử dụng định dạng: 1d2h30m",
+        "alert_calculation_error": "Lỗi trong tính toán. Vui lòng kiểm tra đầu vào của bạn.",
+        "monster_necrosis": "Hoại tử",
+        "monster_bon_appeti": "Bon Appeti",
+        "monster_queen_bee": "Ong chúa",
+        "monster_mega_maggot": "Giòi khổng lồ",
+        "monster_hootclaw": "Móng vuốt cú",
+        "monster_tidal_titan": "Người khổng lồ thủy triều",
+        "monster_mecha_trojan": "Ngựa thành Troy cơ khí",
+        "monster_grim_reaper": "Thần chết",
+        "monster_blackwing": "Cánh đen",
+        "monster_snow_beast": "Quái vật tuyết",
+        "monster_frostwing": "Cánh băng",
+        "monster_voodoo_shaman": "Phù thủy Voodoo",
+        "monster_terrorthorn": "Gai kinh hoàng",
+        "monster_serpent_gladiator": "Đấu sĩ rắn",
+        "monster_saberfang": "Răng kiếm",
+        "monster_noceros": "Noceros",
+        "monster_jade_wyrm": "Rồng ngọc",
+        "monster_hell_drider": "Nhện quỷ địa ngục",
+        "monster_hardrox": "Hardrox",
+        "monster_gryphon": "Chim ưng",
+        "monster_gawrilla": "Gawrilla",
+        "monster_gargantua": "Gargantua",
+        "monster_cottageroar": "Tiếng gầm nhà tranh",
+        "monster_arctic_flipper": "Vây Bắc Cực"
+    },
+    "zh": {
+        "app_title": "王国纪元中心",
+        "home": "首页",
+        "speedup_calculator": "加速器计算器",
+        "monster_hunting": "魔物狩猎",
+        "training_calculator": "训练计算器",
+        "welcome_title": "欢迎来到王国纪元中心",
+        "welcome_description": "您掌握王国所需的基本工具和指南的一站式目的地。",
+        "available_tools": "可用工具",
+        "speedup_card_description": "使用我们易于使用的工具，计算您总共需要多少分钟、小时和天的加速。",
+        "hunting_card_description": "查看每个魔物的最佳英雄阵容，以最大限度地提高您的狩猎效率。",
+        "training_card_description": "计算训练每个等级和类型部队所需的资源。",
+        "footer_text": "&copy; 2026 王国纪元中心 | jash0077",
+        "total_time": "总时间",
+        "minutes": "分钟",
+        "hours": "小时",
+        "days": "天",
+        "monster_hunting_guides": "魔物狩猎指南",
+        "tab_speedups": "加速器数量",
+        "tab_troops": "部队数量",
+        "troop_tier": "部队等级",
+        "troop_type": "部队类型",
+        "infantry": "步兵",
+        "ranged": "弓兵",
+        "cavalry": "骑兵",
+        "siege": "攻城器械",
+        "number_of_troops": "部队数量",
+        "enter_troops_placeholder": "输入部队数量",
+        "training_speed": "训练速度 (%)",
+        "subsidy": "补贴 (%)",
+        "speedups_format": "加速器 (格式: 0d4h10m)",
+        "speedups_placeholder": "例如: 1d2h30m",
+        "calculate": "计算",
+        "clear_all": "清除所有",
+        "results": "结果",
+        "gems_required": "所需宝石",
+        "speedups_required": "所需加速器",
+        "food_required": "所需粮食",
+        "timber_required": "所需木材",
+        "stones_required": "所需石材",
+        "ore_required": "所需矿石",
+        "gold_required": "所需金币",
+        "calculation_info": "* 所有计算均基于当前输入值",
+        "alert_valid_troops": "请输入有效的部队数量",
+        "alert_invalid_speedup_format": "加速时间格式无效。请使用 1d2h30m 格式",
+        "alert_calculation_error": "计算错误。请检查您的输入。",
+        "monster_necrosis": "坏死",
+        "monster_bon_appeti": "食欲之神",
+        "monster_queen_bee": "蜂后",
+        "monster_mega_maggot": "巨型蛆虫",
+        "monster_hootclaw": "枭爪",
+        "monster_tidal_titan": "潮汐巨人",
+        "monster_mecha_trojan": "机械特洛伊",
+        "monster_grim_reaper": "死神",
+        "monster_blackwing": "黑翼",
+        "monster_snow_beast": "雪怪",
+        "monster_frostwing": "冰霜之翼",
+        "monster_voodoo_shaman": "巫毒萨满",
+        "monster_terrorthorn": "恐怖荆棘",
+        "monster_serpent_gladiator": "蛇形角斗士",
+        "monster_saberfang": "军刀牙",
+        "monster_noceros": "犀牛",
+        "monster_jade_wyrm": "玉龙",
+        "monster_hell_drider": "地狱蜘蛛",
+        "monster_hardrox": "硬石",
+        "monster_gryphon": "狮鹫",
+        "monster_gawrilla": "大猩猩",
+        "monster_gargantua": "巨人",
+        "monster_cottageroar": "咆哮小屋",
+        "monster_arctic_flipper": "北极鳍"
+    }
+};
+
+const languageNames = {
+    "en": "English",
+    "es": "Español",
+    "ja": "日本語",
+    "ar": "العربية",
+    "vi": "Tiếng Việt",
+    "zh": "中文"
+};
+
+function setLanguage(lang) {
+    localStorage.setItem("selectedLanguage", lang);
+    applyTranslations(lang);
+}
+
+function applyTranslations(lang) {
+    const currentTranslations = translations[lang];
+    if (!currentTranslations) return;
+
+    // Apply RTL for Arabic
+    if (lang === "ar") {
+        document.body.style.direction = "rtl";
+        document.body.classList.add("rtl");
+    } else {
+        document.body.style.direction = "ltr";
+        document.body.classList.remove("rtl");
+    }
+
+    // Translate elements with data-translate-key attribute
+    document.querySelectorAll("[data-translate-key]").forEach(element => {
+        const key = element.getAttribute("data-translate-key");
+        if (currentTranslations[key]) {
+            element.textContent = currentTranslations[key];
+        }
+    });
+
+    // Translate placeholders
+    document.querySelectorAll("[data-translate-placeholder-key]").forEach(element => {
+        const key = element.getAttribute("data-translate-placeholder-key");
+        if (currentTranslations[key]) {
+            element.placeholder = currentTranslations[key];
+        }
+    });
+
+    // Translate value attributes (for input fields with default values that are translatable)
+    document.querySelectorAll("[data-translate-value-key]").forEach(element => {
+        const key = element.getAttribute("data-translate-value-key");
+        if (currentTranslations[key]) {
+            element.value = currentTranslations[key];
+        }
+    });
+
+    // Translate specific elements by ID for titles and special cases
+    if (document.getElementById("pageTitle")) {
+        const pageKey = document.getElementById("pageTitle").getAttribute("data-page-key");
+        if (pageKey && currentTranslations[pageKey]) {
+            document.title = currentTranslations["app_title"] + " - " + currentTranslations[pageKey];
+        }
+    }
+
+    // Update monster names in hunting.html
+    if (document.querySelector(".gallery")) {
+        document.querySelectorAll(".card").forEach(card => {
+            const monsterKey = card.querySelector(".card-info").getAttribute("data-monster-key");
+            if (monsterKey && currentTranslations[monsterKey]) {
+                card.querySelector(".card-info").textContent = currentTranslations[monsterKey];
+            }
+        });
+    }
+
+    // Update language switcher display
+    const langSwitcherBtn = document.getElementById("langSwitcherBtn");
+    if (langSwitcherBtn) {
+        const currentLangName = languageNames[lang];
+        langSwitcherBtn.innerHTML = `<i class="fas fa-globe"></i> ${currentLangName}`;
+    }
+}
+
+// Initialize language on page load
+document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem("selectedLanguage") || "en";
+    applyTranslations(savedLang);
+
+    // Set active class for the selected language in the dropdown
+    const langOptions = document.querySelectorAll(".lang-option");
+    langOptions.forEach(option => {
+        if (option.getAttribute("data-lang") === savedLang) {
+            option.classList.add("selected");
+        } else {
+            option.classList.remove("selected");
+        }
+    });
+});

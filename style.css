@@ -138,3 +138,180 @@ footer {
     color: #999;
     font-size: 0.85em;
 }
+
+/* Language Switcher */
+.language-switcher {
+    position: relative;
+    margin-left: 20px;
+}
+
+.lang-switcher-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.lang-switcher-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-switcher-btn i {
+    font-size: 1.2em;
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--dark-blue);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    min-width: 150px;
+    z-index: 1001;
+    display: none;
+    padding: 10px 0;
+}
+
+.language-dropdown.show {
+    display: block;
+}
+
+.language-dropdown a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-weight: 400;
+    transition: background 0.2s;
+}
+
+.language-dropdown a:hover {
+    background: var(--light-blue);
+}
+
+.language-dropdown a.selected {
+    background: var(--light-blue);
+    font-weight: 600;
+}
+
+/* RTL support for Arabic */
+body.rtl {
+    direction: rtl;
+}
+
+body.rtl header {
+    flex-direction: row-reverse;
+}
+
+body.rtl .nav-links {
+    text-align: center;
+}
+
+body.rtl .language-switcher {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
+body.rtl .language-dropdown {
+    left: 0;
+    right: auto;
+}
+
+body.rtl .tool-card i {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.rtl .input-label {
+    text-align: right;
+}
+
+body.rtl .input-field {
+    text-align: right;
+}
+
+body.rtl .result-item {
+    border-left: none;
+    border-right: 4px solid var(--light-blue);
+}
+
+body.rtl .result-item.gems {
+    border-right-color: #ffc107;
+}
+
+body.rtl .result-item.speedup {
+    border-right-color: #ff5722;
+}
+
+body.rtl .result-item.food {
+    border-right-color: #8bc34a;
+}
+
+body.rtl .result-item.wood {
+    border-right-color: #795548;
+}
+
+body.rtl .result-item.stone {
+    border-right-color: #9e9e9e;
+}
+
+body.rtl .result-item.ore {
+    border-right-color: #607d8b;
+}
+
+body.rtl .result-item.gold {
+    border-right-color: #ffc107;
+}
+
+body.rtl .info-text {
+    text-align: center;
+}
+
+body.rtl .hero-section h1, body.rtl .hero-section p, body.rtl .section-title, body.rtl .results-title {
+    text-align: center;
+}
+
+body.rtl .button-group {
+    justify-content: flex-end;
+}
+
+body.rtl .btn-toggle {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+body.rtl .speedup-row {
+    flex-direction: row-reverse;
+}
+
+body.rtl .speedup-icon {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.rtl .speedup-input {
+    text-align: right;
+}
+
+@media (max-width: 600px) {
+    body.rtl header {
+        flex-direction: row;
+    }
+    body.rtl .language-switcher {
+        margin-right: 0;
+        margin-left: 20px;
+    }
+    body.rtl .language-dropdown {
+        right: 0;
+        left: auto;
+    }
+}
