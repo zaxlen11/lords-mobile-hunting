@@ -3,136 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lords Mobile Guild Hunting Hero Lineups & Speedup Calculator</title>
+    <title>Lords Mobile Hub - Speedup Calculator & Hunting Guides</title>
     <style>
+        :root {
+            --green-speedup: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
+            --blue-speedup: linear-gradient(180deg, #2196f3 0%, #1565c0 100%);
+            --red-speedup: linear-gradient(180deg, #f44336 0%, #c62828 100%);
+            --dark-blue: #1e3c72;
+            --light-bg: #f4f7f6;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background-color: var(--light-bg);
             margin: 0;
             padding: 20px;
             color: #333;
         }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        header p {
-            margin: 10px 0 0;
-            opacity: 0.9;
-        }
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header h1 { margin: 0; font-size: 2em; }
+        header p { margin: 5px 0 0; opacity: 0.8; }
+
         .section-title {
             text-align: center;
-            margin: 40px 0 20px;
-            font-size: 1.8em;
-            color: #1e3c72;
-            border-bottom: 2px solid #1e3c72;
-            padding-bottom: 10px;
+            margin: 30px 0 20px;
+            font-size: 1.5em;
+            color: var(--dark-blue);
+            font-weight: bold;
         }
+
         /* Calculator Styles */
         .calculator-card {
             background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-bottom: 40px;
         }
-        .calc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+        .speedup-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 5px 10px;
         }
-        .input-group {
+        .speedup-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75em;
+            margin-right: 15px;
+            flex-shrink: 0;
+            position: relative;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
         }
-        .input-group label {
-            font-size: 0.9em;
-            margin-bottom: 5px;
+        .speedup-icon::before {
+            content: "▶▶";
+            font-size: 1.2em;
+            margin-bottom: -2px;
+        }
+        .icon-green { background: var(--green-speedup); border: 1px solid #1b5e20; }
+        .icon-blue { background: var(--blue-speedup); border: 1px solid #0d47a1; }
+        .icon-red { background: var(--red-speedup); border: 1px solid #b71c1c; }
+        
+        .speedup-input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+            font-size: 1.1em;
+            outline: none;
+            text-align: left;
             color: #555;
         }
-        .input-group input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-        .result-box {
-            background: #e9f0f7;
-            padding: 20px;
-            border-radius: 8px;
+        .speedup-input:focus { color: #000; }
+
+        .calc-btn-container {
             text-align: center;
-            border-left: 5px solid #2a5298;
+            margin-top: 25px;
         }
-        .result-box h2 {
-            margin: 0;
-            color: #1e3c72;
-            font-size: 1.5em;
-        }
-        .result-box p {
-            margin: 10px 0 0;
-            font-size: 1.2em;
+        .calc-btn {
+            background: linear-gradient(to bottom, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            padding: 12px 60px;
+            border-radius: 8px;
+            font-size: 1.1em;
             font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
         }
+        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 60, 114, 0.4); }
+        .calc-btn:active { transform: translateY(0); }
+
+        .result-display {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+        }
+        .result-display h3 { margin: 0 0 10px; color: #666; font-size: 1em; text-transform: uppercase; }
+        .result-display p { margin: 0; font-size: 1.4em; color: var(--dark-blue); font-weight: bold; }
+
         /* Gallery Styles */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
-            padding: 10px;
         }
         .card {
             background: white;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
         }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-bottom: 1px solid #eee;
-        }
-        .card-info {
-            padding: 15px;
-            text-align: center;
-            background: #fff;
-        }
-        .card-info h3 {
-            margin: 0;
-            font-size: 1.1em;
-            color: #2c3e50;
-        }
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: #777;
-            font-size: 0.9em;
-        }
-        @media (max-width: 600px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            .calc-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: auto; display: block; }
+        .card-info { padding: 12px; text-align: center; font-weight: bold; color: #444; }
+
+        footer { text-align: center; padding: 40px 0; color: #999; font-size: 0.85em; }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .speedup-icon { width: 40px; height: 40px; font-size: 0.65em; }
         }
     </style>
 </head>
@@ -141,59 +156,113 @@
 <div class="container">
     <header>
         <h1>Lords Mobile Hub</h1>
-        <p>Hero Lineup Guides & Speedup Calculator</p>
+        <p>Guides & Tools for the Guild</p>
     </header>
 
     <div class="section-title">Speedup Calculator</div>
     <div class="calculator-card">
-        <div class="calc-grid">
-            <div class="input-group"><label>1 Min</label><input type="number" min="0" placeholder="0" data-mins="1" oninput="calculate()"></div>
-            <div class="input-group"><label>3 Min</label><input type="number" min="0" placeholder="0" data-mins="3" oninput="calculate()"></div>
-            <div class="input-group"><label>5 Min</label><input type="number" min="0" placeholder="0" data-mins="5" oninput="calculate()"></div>
-            <div class="input-group"><label>10 Min</label><input type="number" min="0" placeholder="0" data-mins="10" oninput="calculate()"></div>
-            <div class="input-group"><label>15 Min</label><input type="number" min="0" placeholder="0" data-mins="15" oninput="calculate()"></div>
-            <div class="input-group"><label>30 Min</label><input type="number" min="0" placeholder="0" data-mins="30" oninput="calculate()"></div>
-            <div class="input-group"><label>60 Min (1h)</label><input type="number" min="0" placeholder="0" data-mins="60" oninput="calculate()"></div>
-            <div class="input-group"><label>3 Hours</label><input type="number" min="0" placeholder="0" data-mins="180" oninput="calculate()"></div>
-            <div class="input-group"><label>8 Hours</label><input type="number" min="0" placeholder="0" data-mins="480" oninput="calculate()"></div>
-            <div class="input-group"><label>15 Hours</label><input type="number" min="0" placeholder="0" data-mins="900" oninput="calculate()"></div>
-            <div class="input-group"><label>24 Hours (1d)</label><input type="number" min="0" placeholder="0" data-mins="1440" oninput="calculate()"></div>
-            <div class="input-group"><label>3 Days</label><input type="number" min="0" placeholder="0" data-mins="4320" oninput="calculate()"></div>
-            <div class="input-group"><label>7 Days</label><input type="number" min="0" placeholder="0" data-mins="10080" oninput="calculate()"></div>
-            <div class="input-group"><label>30 Days</label><input type="number" min="0" placeholder="0" data-mins="43200" oninput="calculate()"></div>
+        <!-- Minute Speedups -->
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">1m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="1">
         </div>
-        <div class="result-box">
-            <h2>Total Time</h2>
-            <p id="total-display">0 Days, 0 Hours, 0 Minutes</p>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">3m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="3">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">5m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="5">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">10m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="10">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">15m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="15">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">30m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="30">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-green">60m</div>
+            <input type="number" class="speedup-input" value="0" data-mins="60">
+        </div>
+
+        <!-- Hour Speedups -->
+        <div class="speedup-row">
+            <div class="speedup-icon icon-blue">3h</div>
+            <input type="number" class="speedup-input" value="0" data-mins="180">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-blue">8h</div>
+            <input type="number" class="speedup-input" value="0" data-mins="480">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-blue">15h</div>
+            <input type="number" class="speedup-input" value="0" data-mins="900">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-blue">24h</div>
+            <input type="number" class="speedup-input" value="0" data-mins="1440">
+        </div>
+
+        <!-- Day Speedups -->
+        <div class="speedup-row">
+            <div class="speedup-icon icon-red">3d</div>
+            <input type="number" class="speedup-input" value="0" data-mins="4320">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-red">7d</div>
+            <input type="number" class="speedup-input" value="0" data-mins="10080">
+        </div>
+        <div class="speedup-row">
+            <div class="speedup-icon icon-red">30d</div>
+            <input type="number" class="speedup-input" value="0" data-mins="43200">
+        </div>
+
+        <div class="calc-btn-container">
+            <button class="calc-btn" onclick="calculate()">Calculate</button>
+        </div>
+
+        <div class="result-display">
+            <h3>Total Time</h3>
+            <div id="total-display" style="line-height: 1.6; font-size: 1.2em; color: var(--dark-blue);">
+                <div><strong>0</strong> Minutes</div>
+                <div><strong>0.00</strong> Hours</div>
+                <div><strong>0.00</strong> Days</div>
+            </div>
         </div>
     </div>
 
-    <div class="section-title">Guild Hunting Hero Lineups</div>
+    <div class="section-title">Monster Hunting Guides</div>
     <div class="gallery">
-        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info"><h3>Necrosis</h3></div></div>
-        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info"><h3>Bon Appeti</h3></div></div>
-        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info"><h3>Queen Bee</h3></div></div>
-        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info"><h3>Mega Maggot</h3></div></div>
-        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info"><h3>Hootclaw</h3></div></div>
-        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info"><h3>Tidal Titan</h3></div></div>
-        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info"><h3>Mecha Trojan</h3></div></div>
-        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info"><h3>Grim Reaper</h3></div></div>
-        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info"><h3>Blackwing</h3></div></div>
-        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info"><h3>Snow Beast</h3></div></div>
-        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info"><h3>Frostwing</h3></div></div>
-        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info"><h3>Voodoo Shaman</h3></div></div>
-        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info"><h3>Terrorthorn</h3></div></div>
-        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info"><h3>Serpent Gladiator</h3></div></div>
-        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info"><h3>Saberfang</h3></div></div>
-        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info"><h3>Noceros</h3></div></div>
-        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info"><h3>Jade Wyrm</h3></div></div>
-        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info"><h3>Hell Drider</h3></div></div>
-        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info"><h3>Hardrox</h3></div></div>
-        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info"><h3>Gryphon</h3></div></div>
-        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info"><h3>Gawrilla</h3></div></div>
-        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info"><h3>Gargantua</h3></div></div>
-        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info"><h3>Cottageroar</h3></div></div>
-        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info"><h3>Arctic Flipper</h3></div></div>
+        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info">Necrosis</div></div>
+        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info">Bon Appeti</div></div>
+        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info">Queen Bee</div></div>
+        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info">Mega Maggot</div></div>
+        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info">Hootclaw</div></div>
+        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info">Tidal Titan</div></div>
+        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info">Mecha Trojan</div></div>
+        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info">Grim Reaper</div></div>
+        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info">Blackwing</div></div>
+        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info">Snow Beast</div></div>
+        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info">Frostwing</div></div>
+        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info">Voodoo Shaman</div></div>
+        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info">Terrorthorn</div></div>
+        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info">Serpent Gladiator</div></div>
+        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info">Saberfang</div></div>
+        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info">Noceros</div></div>
+        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info">Jade Wyrm</div></div>
+        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info">Hell Drider</div></div>
+        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info">Hardrox</div></div>
+        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info">Gryphon</div></div>
+        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info">Gawrilla</div></div>
+        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info">Gargantua</div></div>
+        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info">Cottageroar</div></div>
+        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info">Arctic Flipper</div></div>
     </div>
 
     <footer>
@@ -204,7 +273,7 @@
 <script>
     function calculate() {
         let totalMinutes = 0;
-        const inputs = document.querySelectorAll('input[type="number"]');
+        const inputs = document.querySelectorAll('.speedup-input');
         
         inputs.forEach(input => {
             const quantity = parseInt(input.value) || 0;
@@ -212,13 +281,14 @@
             totalMinutes += (quantity * minutesPerUnit);
         });
 
-        const days = Math.floor(totalMinutes / (24 * 60));
-        const remainingMinutesAfterDays = totalMinutes % (24 * 60);
-        const hours = Math.floor(remainingMinutesAfterDays / 60);
-        const minutes = remainingMinutesAfterDays % 60;
+        const totalHours = totalMinutes / 60;
+        const totalDays = totalHours / 24;
 
-        document.getElementById('total-display').innerText = 
-            `${days} Days, ${hours} Hours, ${minutes} Minutes`;
+        document.getElementById('total-display').innerHTML = `
+            <div><strong>${totalMinutes.toLocaleString()}</strong> Minutes</div>
+            <div><strong>${totalHours.toFixed(2)}</strong> Hours</div>
+            <div><strong>${totalDays.toFixed(2)}</strong> Days</div>
+        `;
     }
 </script>
 
