@@ -11,7 +11,7 @@ const translations = {
         "speedup_card_description": "Calculate your total speedups in minutes, hours, and days with our easy-to-use tool.",
         "hunting_card_description": "View the best hero lineups for every monster to maximize your hunting efficiency.",
         "training_card_description": "Calculate resources needed to train troops for each tier and type.",
-        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "Total Time",
         "minutes": "Minutes",
         "hours": "Hours",
@@ -82,7 +82,7 @@ const translations = {
         "speedup_card_description": "Calcula tus aceleradores totales en minutos, horas y días con nuestra herramienta fácil de usar.",
         "hunting_card_description": "Ve las mejores alineaciones de héroes para cada monstruo para maximizar tu eficiencia de caza.",
         "training_card_description": "Calcula los recursos necesarios para entrenar tropas de cada nivel y tipo.",
-        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "Tiempo Total",
         "minutes": "Minutos",
         "hours": "Horas",
@@ -153,7 +153,7 @@ const translations = {
         "speedup_card_description": "使いやすいツールで、合計時短を分、時間、日で計算します。",
         "hunting_card_description": "各魔獣の最高のヒーロー編成を見て、討伐効率を最大化しましょう。",
         "training_card_description": "各ティアとタイプの部隊を訓練するのに必要な資源を計算します。",
-        "footer_text": "&copy; 2026 ロードモバイルハブ | jash0077",
+        "footer_text": "&copy; 2026 ロードモバイルハブ | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "合計時間",
         "minutes": "分",
         "hours": "時間",
@@ -224,7 +224,7 @@ const translations = {
         "speedup_card_description": "احسب إجمالي تسريعاتك بالدقائق والساعات والأيام باستخدام أداتنا سهلة الاستخدام.",
         "hunting_card_description": "شاهد أفضل تشكيلات الأبطال لكل وحش لزيادة كفاءة صيدك.",
         "training_card_description": "احسب الموارد اللازمة لتدريب القوات لكل مستوى ونوع.",
-        "footer_text": "&copy; 2026 لوردس موبايل هاب | jash0077",
+        "footer_text": "&copy; 2026 لوردس موبايل هاب | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "الوقت الإجمالي",
         "minutes": "دقائق",
         "hours": "ساعات",
@@ -295,7 +295,7 @@ const translations = {
         "speedup_card_description": "Tính tổng thời gian tăng tốc của bạn theo phút, giờ và ngày với công cụ dễ sử dụng của chúng tôi.",
         "hunting_card_description": "Xem đội hình anh hùng tốt nhất cho mỗi quái vật để tối đa hóa hiệu quả săn bắn của bạn.",
         "training_card_description": "Tính toán tài nguyên cần thiết để huấn luyện quân đội cho mỗi cấp và loại.",
-        "footer_text": "&copy; 2026 Lords Mobile Hub | jash0077",
+        "footer_text": "&copy; 2026 Lords Mobile Hub | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "Tổng thời gian",
         "minutes": "Phút",
         "hours": "Giờ",
@@ -366,7 +366,7 @@ const translations = {
         "speedup_card_description": "使用我们易于使用的工具，计算您总共需要多少分钟、小时和天的加速。",
         "hunting_card_description": "查看每个魔物的最佳英雄阵容，以最大限度地提高您的狩猎效率。",
         "training_card_description": "计算训练每个等级和类型部队所需的资源。",
-        "footer_text": "&copy; 2026 王国纪元中心 | jash0077",
+        "footer_text": "&copy; 2026 王国纪元中心 | <a href=\"admin.html\" style=\"color:inherit;text-decoration:none;\">jash0077</a>",
         "total_time": "总时间",
         "minutes": "分钟",
         "hours": "小时",
@@ -458,7 +458,11 @@ function applyTranslations(lang) {
     document.querySelectorAll("[data-translate-key]").forEach(element => {
         const key = element.getAttribute("data-translate-key");
         if (currentTranslations[key]) {
-            element.textContent = currentTranslations[key];
+            if (key === 'footer_text') {
+                element.innerHTML = currentTranslations[key];
+            } else {
+                element.textContent = currentTranslations[key];
+            }
         }
     });
 
