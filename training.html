@@ -306,6 +306,7 @@
         <a href="calculator.html" data-translate-key="speedup_calculator">Speedup Calculator</a>
         <a href="hunting.html" data-translate-key="monster_hunting">Monster Hunting</a>
         <a href="training.html" data-translate-key="training_calculator">Training Calculator</a>
+        <a href="composition.html">Troop Composition</a>
     </nav>
 </header>
 
@@ -445,189 +446,6 @@
                 </div>
             </div>
             <div class="info-text" data-translate-key="calculation_info">* All calculations based on current input values</div>
-        </div>
-    </div>
-
-    <!-- Troop Composition Calculator -->
-    <div class="section-title" style="margin-top: 50px;">Troop Composition Calculator</div>
-    
-    <div class="training-container" id="troopCompSection">
-        <style>
-            .comp-input-row {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                margin-bottom: 18px;
-            }
-            .comp-icon {
-                width: 40px;
-                height: 40px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0.75em;
-                font-weight: bold;
-                color: white;
-                flex-shrink: 0;
-            }
-            .comp-icon.troop-qty { background: linear-gradient(135deg, #4caf50, #2e7d32); }
-            .comp-icon.t5 { background: linear-gradient(135deg, #2196f3, #1565c0); }
-            .comp-icon.t4 { background: linear-gradient(135deg, #9c27b0, #6a1b9a); }
-            .comp-icon.infantry { background: linear-gradient(135deg, #ffc107, #f57f17); }
-            .comp-icon.ranged { background: linear-gradient(135deg, #4caf50, #2e7d32); }
-            .comp-icon.cavalry { background: linear-gradient(135deg, #ff5722, #d84315); }
-            .comp-label {
-                min-width: 80px;
-                font-weight: 600;
-                color: var(--dark-blue);
-                font-size: 0.95em;
-            }
-            .comp-input {
-                width: 120px;
-                padding: 10px 14px;
-                border: 2px solid #ddd;
-                border-radius: 8px;
-                font-size: 1em;
-                text-align: center;
-                transition: all 0.2s;
-            }
-            .comp-input:focus {
-                outline: none;
-                border-color: var(--light-blue);
-                box-shadow: 0 0 8px rgba(42, 82, 152, 0.2);
-            }
-            .comp-suffix {
-                color: #666;
-                font-weight: 500;
-            }
-            .comp-section-label {
-                font-weight: 700;
-                color: var(--dark-blue);
-                font-size: 1.05em;
-                margin-bottom: 15px;
-                margin-top: 10px;
-            }
-            .comp-results {
-                background: rgba(30, 60, 114, 0.9);
-                border-radius: 10px;
-                padding: 20px;
-                margin-top: 25px;
-                border: 2px solid #d4a017;
-                display: none;
-            }
-            .comp-results.show {
-                display: block;
-            }
-            .comp-results-title {
-                text-align: center;
-                font-size: 1.2em;
-                font-weight: bold;
-                color: white;
-                margin-bottom: 15px;
-            }
-            .comp-result-row {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                margin-bottom: 10px;
-                color: white;
-            }
-            .comp-result-row .comp-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 0.6em;
-            }
-            .comp-result-label {
-                min-width: 120px;
-                font-weight: 500;
-            }
-            .comp-result-value {
-                color: #ffc107;
-                font-weight: bold;
-                font-size: 1.1em;
-            }
-        </style>
-
-        <div class="comp-section-label">Troop Composition:</div>
-        
-        <div class="comp-input-row">
-            <div class="comp-icon troop-qty"><i class="fas fa-users"></i></div>
-            <span class="comp-label">Troop Qty</span>
-            <input type="number" class="comp-input" id="compTroopQty" value="100000" min="0">
-        </div>
-
-        <div class="comp-input-row">
-            <div class="comp-icon t5">T5</div>
-            <span class="comp-label">T5 %</span>
-            <input type="number" class="comp-input" id="compT5Pct" value="50" min="0" max="100">
-            <span class="comp-suffix">%</span>
-        </div>
-
-        <div class="comp-input-row">
-            <div class="comp-icon t4">T4</div>
-            <span class="comp-label">T4 %</span>
-            <input type="number" class="comp-input" id="compT4Pct" value="50" min="0" max="100">
-            <span class="comp-suffix">%</span>
-        </div>
-
-        <div class="comp-section-label">Troop Ratio:</div>
-
-        <div class="comp-input-row">
-            <div class="comp-icon infantry"><i class="fas fa-shield-alt"></i></div>
-            <span class="comp-label">Infantry</span>
-            <input type="number" class="comp-input" id="compInfantry" value="8" min="0">
-        </div>
-
-        <div class="comp-input-row">
-            <div class="comp-icon ranged"><i class="fas fa-crosshairs"></i></div>
-            <span class="comp-label">Ranged</span>
-            <input type="number" class="comp-input" id="compRanged" value="4" min="0">
-        </div>
-
-        <div class="comp-input-row">
-            <div class="comp-icon cavalry"><i class="fas fa-horse"></i></div>
-            <span class="comp-label">Cavalry</span>
-            <input type="number" class="comp-input" id="compCavalry" value="8" min="0">
-        </div>
-
-        <div class="button-actions">
-            <button class="btn-calculate" onclick="calculateComp()">Calculate</button>
-            <button class="btn-clear" onclick="clearComp()">Clear All</button>
-        </div>
-
-        <div class="comp-results" id="compResults">
-            <div class="comp-results-title">Results</div>
-            <div class="comp-result-row">
-                <div class="comp-icon infantry"><i class="fas fa-shield-alt"></i></div>
-                <span class="comp-result-label">T5 Infantry:</span>
-                <span class="comp-result-value" id="resT5Inf">0</span>
-            </div>
-            <div class="comp-result-row">
-                <div class="comp-icon ranged"><i class="fas fa-crosshairs"></i></div>
-                <span class="comp-result-label">T5 Ranged:</span>
-                <span class="comp-result-value" id="resT5Ran">0</span>
-            </div>
-            <div class="comp-result-row">
-                <div class="comp-icon cavalry"><i class="fas fa-horse"></i></div>
-                <span class="comp-result-label">T5 Cavalry:</span>
-                <span class="comp-result-value" id="resT5Cav">0</span>
-            </div>
-            <div class="comp-result-row">
-                <div class="comp-icon infantry"><i class="fas fa-shield-alt"></i></div>
-                <span class="comp-result-label">T4 Infantry:</span>
-                <span class="comp-result-value" id="resT4Inf">0</span>
-            </div>
-            <div class="comp-result-row">
-                <div class="comp-icon ranged"><i class="fas fa-crosshairs"></i></div>
-                <span class="comp-result-label">T4 Ranged:</span>
-                <span class="comp-result-value" id="resT4Ran">0</span>
-            </div>
-            <div class="comp-result-row">
-                <div class="comp-icon cavalry"><i class="fas fa-horse"></i></div>
-                <span class="comp-result-label">T4 Cavalry:</span>
-                <span class="comp-result-value" id="resT4Cav">0</span>
-            </div>
         </div>
     </div>
 </div>
@@ -858,56 +676,10 @@
         document.getElementById('resultsSection').classList.remove('show');
     }
 
-    // Troop Composition Calculator
-    function calculateComp() {
-        const totalTroops = parseInt(document.getElementById('compTroopQty').value) || 0;
-        const t5Pct = parseFloat(document.getElementById('compT5Pct').value) || 0;
-        const t4Pct = parseFloat(document.getElementById('compT4Pct').value) || 0;
-        const infRatio = parseFloat(document.getElementById('compInfantry').value) || 0;
-        const ranRatio = parseFloat(document.getElementById('compRanged').value) || 0;
-        const cavRatio = parseFloat(document.getElementById('compCavalry').value) || 0;
-
-        if (totalTroops <= 0) {
-            alert('Please enter a valid troop quantity.');
-            return;
-        }
-
-        const totalRatio = infRatio + ranRatio + cavRatio;
-        if (totalRatio <= 0) {
-            alert('Please enter valid troop ratios.');
-            return;
-        }
-
-        const t5Total = Math.floor(totalTroops * t5Pct / 100);
-        const t4Total = Math.floor(totalTroops * t4Pct / 100);
-
-        const t5Inf = Math.round(t5Total * infRatio / totalRatio);
-        const t5Ran = Math.round(t5Total * ranRatio / totalRatio);
-        const t5Cav = Math.round(t5Total * cavRatio / totalRatio);
-
-        const t4Inf = Math.round(t4Total * infRatio / totalRatio);
-        const t4Ran = Math.round(t4Total * ranRatio / totalRatio);
-        const t4Cav = Math.round(t4Total * cavRatio / totalRatio);
-
-        document.getElementById('resT5Inf').textContent = t5Inf.toLocaleString();
-        document.getElementById('resT5Ran').textContent = t5Ran.toLocaleString();
-        document.getElementById('resT5Cav').textContent = t5Cav.toLocaleString();
-        document.getElementById('resT4Inf').textContent = t4Inf.toLocaleString();
-        document.getElementById('resT4Ran').textContent = t4Ran.toLocaleString();
-        document.getElementById('resT4Cav').textContent = t4Cav.toLocaleString();
-
-        document.getElementById('compResults').classList.add('show');
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
     }
 
-    function clearComp() {
-        document.getElementById('compTroopQty').value = '100000';
-        document.getElementById('compT5Pct').value = '50';
-        document.getElementById('compT4Pct').value = '50';
-        document.getElementById('compInfantry').value = '8';
-        document.getElementById('compRanged').value = '4';
-        document.getElementById('compCavalry').value = '8';
-        document.getElementById('compResults').classList.remove('show');
-    }
 </script>
 <script src="translations.js"></script>
 
