@@ -3,266 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lords Mobile Hub - Speedup Calculator & Hunting Guides</title>
-    <style>
-        :root {
-            --green-speedup: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
-            --blue-speedup: linear-gradient(180deg, #2196f3 0%, #1565c0 100%);
-            --red-speedup: linear-gradient(180deg, #f44336 0%, #c62828 100%);
-            --dark-blue: #1e3c72;
-            --light-bg: #f4f7f6;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        header {
-            text-align: center;
-            padding: 30px 0;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        header h1 { margin: 0; font-size: 2em; }
-        header p { margin: 5px 0 0; opacity: 0.8; }
-
-        .section-title {
-            text-align: center;
-            margin: 30px 0 20px;
-            font-size: 1.5em;
-            color: var(--dark-blue);
-            font-weight: bold;
-        }
-
-        /* Calculator Styles */
-        .calculator-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
-        }
-        .speedup-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 5px 10px;
-        }
-        .speedup-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.75em;
-            margin-right: 15px;
-            flex-shrink: 0;
-            position: relative;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        }
-        .speedup-icon::before {
-            content: "▶▶";
-            font-size: 1.2em;
-            margin-bottom: -2px;
-        }
-        .icon-green { background: var(--green-speedup); border: 1px solid #1b5e20; }
-        .icon-blue { background: var(--blue-speedup); border: 1px solid #0d47a1; }
-        .icon-red { background: var(--red-speedup); border: 1px solid #b71c1c; }
-        
-        .speedup-input {
-            flex-grow: 1;
-            border: none;
-            padding: 10px;
-            font-size: 1.1em;
-            outline: none;
-            text-align: left;
-            color: #555;
-        }
-        .speedup-input:focus { color: #000; }
-
-        .calc-btn-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-        .calc-btn {
-            background: linear-gradient(to bottom, #2a5298, #1e3c72);
-            color: white;
-            border: none;
-            padding: 12px 60px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
-        }
-        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 60, 114, 0.4); }
-        .calc-btn:active { transform: translateY(0); }
-
-        .result-display {
-            margin-top: 25px;
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px dashed #ccc;
-        }
-        .result-display h3 { margin: 0 0 10px; color: #666; font-size: 1em; text-transform: uppercase; }
-        .result-display p { margin: 0; font-size: 1.4em; color: var(--dark-blue); font-weight: bold; }
-
-        /* Gallery Styles */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: transform 0.3s;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: auto; display: block; }
-        .card-info { padding: 12px; text-align: center; font-weight: bold; color: #444; }
-
-        footer { text-align: center; padding: 40px 0; color: #999; font-size: 0.85em; }
-
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .speedup-icon { width: 40px; height: 40px; font-size: 0.65em; }
-        }
-    </style>
+    <title>Lords Mobile Hub - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
+<header>
+    <div class="logo">Lords Mobile Hub</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Speedup Calculator</a>
+        <a href="hunting.html">Monster Hunting</a>
+    </nav>
+</header>
+
 <div class="container">
-    <header>
-        <h1>Lords Mobile Hub</h1>
-        <p>Guides & Tools for the Guild</p>
-    </header>
-
-    <div class="section-title">Speedup Calculator</div>
-    <div class="calculator-card">
-        <!-- Minute Speedups -->
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">1m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="1">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">3m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="3">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">5m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="5">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">10m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="10">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">15m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="15">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">30m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="30">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-green">60m</div>
-            <input type="number" class="speedup-input" value="0" data-mins="60">
-        </div>
-
-        <!-- Hour Speedups -->
-        <div class="speedup-row">
-            <div class="speedup-icon icon-blue">3h</div>
-            <input type="number" class="speedup-input" value="0" data-mins="180">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-blue">8h</div>
-            <input type="number" class="speedup-input" value="0" data-mins="480">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-blue">15h</div>
-            <input type="number" class="speedup-input" value="0" data-mins="900">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-blue">24h</div>
-            <input type="number" class="speedup-input" value="0" data-mins="1440">
-        </div>
-
-        <!-- Day Speedups -->
-        <div class="speedup-row">
-            <div class="speedup-icon icon-red">3d</div>
-            <input type="number" class="speedup-input" value="0" data-mins="4320">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-red">7d</div>
-            <input type="number" class="speedup-input" value="0" data-mins="10080">
-        </div>
-        <div class="speedup-row">
-            <div class="speedup-icon icon-red">30d</div>
-            <input type="number" class="speedup-input" value="0" data-mins="43200">
-        </div>
-
-        <div class="calc-btn-container">
-            <button class="calc-btn" onclick="calculate()">Calculate</button>
-        </div>
-
-        <div class="result-display">
-            <h3>Total Time</h3>
-            <div id="total-display" style="line-height: 1.6; font-size: 1.2em; color: var(--dark-blue);">
-                <div><strong>0</strong> Minutes</div>
-                <div><strong>0.00</strong> Hours</div>
-                <div><strong>0.00</strong> Days</div>
-            </div>
-        </div>
+    <div class="hero-section">
+        <h1>Welcome to Lords Mobile Hub</h1>
+        <p>Your one-stop destination for essential tools and guides to dominate the kingdom.</p>
     </div>
 
-    <div class="section-title">Monster Hunting Guides</div>
-    <div class="gallery">
-        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info">Necrosis</div></div>
-        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info">Bon Appeti</div></div>
-        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info">Queen Bee</div></div>
-        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info">Mega Maggot</div></div>
-        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info">Hootclaw</div></div>
-        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info">Tidal Titan</div></div>
-        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info">Mecha Trojan</div></div>
-        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info">Grim Reaper</div></div>
-        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info">Blackwing</div></div>
-        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info">Snow Beast</div></div>
-        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info">Frostwing</div></div>
-        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info">Voodoo Shaman</div></div>
-        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info">Terrorthorn</div></div>
-        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info">Serpent Gladiator</div></div>
-        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info">Saberfang</div></div>
-        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info">Noceros</div></div>
-        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info">Jade Wyrm</div></div>
-        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info">Hell Drider</div></div>
-        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info">Hardrox</div></div>
-        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info">Gryphon</div></div>
-        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info">Gawrilla</div></div>
-        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info">Gargantua</div></div>
-        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info">Cottageroar</div></div>
-        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info">Arctic Flipper</div></div>
+    <div class="section-title">Available Tools</div>
+    
+    <div class="card-grid">
+        <a href="calculator.html" class="tool-card">
+            <i class="fas fa-calculator"></i>
+            <h3>Speedup Calculator</h3>
+            <p>Calculate your total speedups in minutes, hours, and days with our easy-to-use tool.</p>
+        </a>
+        
+        <a href="hunting.html" class="tool-card">
+            <i class="fas fa-dragon"></i>
+            <h3>Monster Hunting</h3>
+            <p>View the best hero lineups for every monster to maximize your hunting efficiency.</p>
+        </a>
     </div>
 
     <footer>
@@ -271,24 +47,8 @@
 </div>
 
 <script>
-    function calculate() {
-        let totalMinutes = 0;
-        const inputs = document.querySelectorAll('.speedup-input');
-        
-        inputs.forEach(input => {
-            const quantity = parseInt(input.value) || 0;
-            const minutesPerUnit = parseInt(input.getAttribute('data-mins'));
-            totalMinutes += (quantity * minutesPerUnit);
-        });
-
-        const totalHours = totalMinutes / 60;
-        const totalDays = totalHours / 24;
-
-        document.getElementById('total-display').innerHTML = `
-            <div><strong>${totalMinutes.toLocaleString()}</strong> Minutes</div>
-            <div><strong>${totalHours.toFixed(2)}</strong> Hours</div>
-            <div><strong>${totalDays.toFixed(2)}</strong> Days</div>
-        `;
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
     }
 </script>
 

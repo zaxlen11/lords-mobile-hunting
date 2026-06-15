@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lords Mobile Hub - Monster Hunting</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: auto; display: block; }
+        .card-info { padding: 15px; text-align: center; font-weight: bold; color: var(--dark-blue); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Lords Mobile Hub</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Speedup Calculator</a>
+        <a href="hunting.html">Monster Hunting</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="section-title">Monster Hunting Guides</div>
+    
+    <div class="gallery">
+        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info">Necrosis</div></div>
+        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info">Bon Appeti</div></div>
+        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info">Queen Bee</div></div>
+        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info">Mega Maggot</div></div>
+        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info">Hootclaw</div></div>
+        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info">Tidal Titan</div></div>
+        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info">Mecha Trojan</div></div>
+        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info">Grim Reaper</div></div>
+        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info">Blackwing</div></div>
+        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info">Snow Beast</div></div>
+        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info">Frostwing</div></div>
+        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info">Voodoo Shaman</div></div>
+        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info">Terrorthorn</div></div>
+        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info">Serpent Gladiator</div></div>
+        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info">Saberfang</div></div>
+        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info">Noceros</div></div>
+        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info">Jade Wyrm</div></div>
+        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info">Hell Drider</div></div>
+        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info">Hardrox</div></div>
+        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info">Gryphon</div></div>
+        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info">Gawrilla</div></div>
+        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info">Gargantua</div></div>
+        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info">Cottageroar</div></div>
+        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info">Arctic Flipper</div></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lords Mobile Hub | jash0077</p>
+    </footer>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lords Mobile Hub - Speedup Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calculator-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        .speedup-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+        .speedup-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75em;
+            margin-right: 15px;
+            flex-shrink: 0;
+            position: relative;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+        .speedup-icon::before {
+            content: "▶▶";
+            font-size: 1.2em;
+            margin-bottom: -2px;
+        }
+        .icon-green { background: var(--green-speedup); border: 1px solid #1b5e20; }
+        .icon-blue { background: var(--blue-speedup); border: 1px solid #0d47a1; }
+        .icon-red { background: var(--red-speedup); border: 1px solid #b71c1c; }
+        
+        .speedup-input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+            font-size: 1.1em;
+            outline: none;
+            text-align: left;
+            color: #555;
+        }
+
+        .calc-btn-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .calc-btn {
+            background: linear-gradient(to bottom, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            padding: 12px 60px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+        }
+        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 60, 114, 0.4); }
+
+        .result-display {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+        }
+        .result-display h3 { margin: 0 0 10px; color: #666; font-size: 1em; text-transform: uppercase; }
+        .result-display p { margin: 0; font-size: 1.4em; color: var(--dark-blue); font-weight: bold; }
+        
+        @media (max-width: 480px) {
+            .speedup-icon { width: 40px; height: 40px; font-size: 0.65em; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Lords Mobile Hub</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Speedup Calculator</a>
+        <a href="hunting.html">Monster Hunting</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="section-title">Speedup Calculator</div>
+    
+    <div class="calculator-card">
+        <!-- Minute Speedups -->
+        <div class="speedup-row"><div class="speedup-icon icon-green">1m</div><input type="number" class="speedup-input" value="0" data-mins="1"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">3m</div><input type="number" class="speedup-input" value="0" data-mins="3"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">5m</div><input type="number" class="speedup-input" value="0" data-mins="5"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">10m</div><input type="number" class="speedup-input" value="0" data-mins="10"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">15m</div><input type="number" class="speedup-input" value="0" data-mins="15"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">30m</div><input type="number" class="speedup-input" value="0" data-mins="30"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-green">60m</div><input type="number" class="speedup-input" value="0" data-mins="60"></div>
+
+        <!-- Hour Speedups -->
+        <div class="speedup-row"><div class="speedup-icon icon-blue">3h</div><input type="number" class="speedup-input" value="0" data-mins="180"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-blue">8h</div><input type="number" class="speedup-input" value="0" data-mins="480"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-blue">15h</div><input type="number" class="speedup-input" value="0" data-mins="900"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-blue">24h</div><input type="number" class="speedup-input" value="0" data-mins="1440"></div>
+
+        <!-- Day Speedups -->
+        <div class="speedup-row"><div class="speedup-icon icon-red">3d</div><input type="number" class="speedup-input" value="0" data-mins="4320"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-red">7d</div><input type="number" class="speedup-input" value="0" data-mins="10080"></div>
+        <div class="speedup-row"><div class="speedup-icon icon-red">30d</div><input type="number" class="speedup-input" value="0" data-mins="43200"></div>
+
+        <div class="calc-btn-container">
+            <button class="calc-btn" onclick="calculate()">Calculate</button>
+        </div>
+
+        <div class="result-display">
+            <h3>Total Time</h3>
+            <div id="total-display" style="line-height: 1.6; font-size: 1.2em; color: var(--dark-blue);">
+                <div><strong>0</strong> Minutes</div>
+                <div><strong>0.00</strong> Hours</div>
+                <div><strong>0.00</strong> Days</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lords Mobile Hub | jash0077</p>
+    </footer>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    function calculate() {
+        let totalMinutes = 0;
+        const inputs = document.querySelectorAll('.speedup-input');
+        
+        inputs.forEach(input => {
+            const quantity = parseInt(input.value) || 0;
+            const minutesPerUnit = parseInt(input.getAttribute('data-mins'));
+            totalMinutes += (quantity * minutesPerUnit);
+        });
+
+        const totalHours = totalMinutes / 60;
+        const totalDays = totalHours / 24;
+
+        document.getElementById('total-display').innerHTML = `
+            <div><strong>${totalMinutes.toLocaleString()}</strong> Minutes</div>
+            <div><strong>${totalHours.toFixed(2)}</strong> Hours</div>
+            <div><strong>${totalDays.toFixed(2)}</strong> Days</div>
+        `;
+    }
+</script>
+
+</body>
+</html>
