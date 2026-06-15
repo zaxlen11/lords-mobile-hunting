@@ -5,37 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle" data-page-key="monster_hunting"></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .gallery {
+        .monster-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             margin-top: 20px;
         }
-        .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: transform 0.3s;
+
+        .monster-btn {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%);
+            color: white;
+            border: none;
+            padding: 16px 12px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
         }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: auto; display: block; }
-        .card-info { padding: 15px; text-align: center; font-weight: bold; color: var(--dark-blue); }
+
+        .monster-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+        }
+
+        .monster-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 400px) {
+            .monster-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .monster-btn {
+                padding: 14px 8px;
+                font-size: 0.85em;
+            }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="language-switcher">
-        <button class="lang-switcher-btn" id="langSwitcherBtn" onclick="document.getElementById(\'languageDropdown\').classList.toggle(\'show\')"><i class="fas fa-globe"></i> English</button>
+        <button class="lang-switcher-btn" id="langSwitcherBtn" onclick="document.getElementById('languageDropdown').classList.toggle('show')"><i class="fas fa-globe"></i> English</button>
         <div class="language-dropdown" id="languageDropdown">
-            <a href="#" class="lang-option" data-lang="en" onclick="setLanguage(\'en\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">English</a>
-            <a href="#" class="lang-option" data-lang="es" onclick="setLanguage(\'es\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">Español</a>
-            <a href="#" class="lang-option" data-lang="ja" onclick="setLanguage(\'ja\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">日本語</a>
-            <a href="#" class="lang-option" data-lang="ar" onclick="setLanguage(\'ar\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">العربية</a>
-            <a href="#" class="lang-option" data-lang="vi" onclick="setLanguage(\'vi\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">Tiếng Việt</a>
-            <a href="#" class="lang-option" data-lang="zh" onclick="setLanguage(\'zh\'); document.getElementById(\'languageDropdown\').classList.remove(\'show\');">中文</a>
+            <a href="#" class="lang-option" data-lang="en" onclick="setLanguage('en'); document.getElementById('languageDropdown').classList.remove('show');">English</a>
+            <a href="#" class="lang-option" data-lang="es" onclick="setLanguage('es'); document.getElementById('languageDropdown').classList.remove('show');">Español</a>
+            <a href="#" class="lang-option" data-lang="ja" onclick="setLanguage('ja'); document.getElementById('languageDropdown').classList.remove('show');">日本語</a>
+            <a href="#" class="lang-option" data-lang="ar" onclick="setLanguage('ar'); document.getElementById('languageDropdown').classList.remove('show');">العربية</a>
+            <a href="#" class="lang-option" data-lang="vi" onclick="setLanguage('vi'); document.getElementById('languageDropdown').classList.remove('show');">Tiếng Việt</a>
+            <a href="#" class="lang-option" data-lang="zh" onclick="setLanguage('zh'); document.getElementById('languageDropdown').classList.remove('show');">中文</a>
         </div>
     </div>
     <div class="logo" data-translate-key="app_title">Lords Mobile Hub</div>
@@ -49,33 +148,10 @@
 </header>
 
 <div class="container">
-    <div class="section-title" data-translate-key="monster_hunting_guides">Monster Hunting Guides</div>
+    <div class="section-title" data-translate-key="select_monster">Select a monster to see its lineup:</div>
     
-    <div class="gallery">
-        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info" data-monster-key="monster_necrosis">Necrosis</div></div>
-        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info" data-monster-key="monster_bon_appeti">Bon Appeti</div></div>
-        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info" data-monster-key="monster_queen_bee">Queen Bee</div></div>
-        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info" data-monster-key="monster_mega_maggot">Mega Maggot</div></div>
-        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info" data-monster-key="monster_hootclaw">Hootclaw</div></div>
-        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info" data-monster-key="monster_tidal_titan">Tidal Titan</div></div>
-        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info" data-monster-key="monster_mecha_trojan">Mecha Trojan</div></div>
-        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info" data-monster-key="monster_grim_reaper">Grim Reaper</div></div>
-        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info" data-monster-key="monster_blackwing">Blackwing</div></div>
-        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info" data-monster-key="monster_snow_beast">Snow Beast</div></div>
-        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info" data-monster-key="monster_frostwing">Frostwing</div></div>
-        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info" data-monster-key="monster_voodoo_shaman">Voodoo Shaman</div></div>
-        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info" data-monster-key="monster_terrorthorn">Terrorthorn</div></div>
-        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info" data-monster-key="monster_serpent_gladiator">Serpent Gladiator</div></div>
-        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info" data-monster-key="monster_saberfang">Saberfang</div></div>
-        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info" data-monster-key="monster_noceros">Noceros</div></div>
-        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info" data-monster-key="monster_jade_wyrm">Jade Wyrm</div></div>
-        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info" data-monster-key="monster_hell_drider">Hell Drider</div></div>
-        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info" data-monster-key="monster_hardrox">Hardrox</div></div>
-        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info" data-monster-key="monster_gryphon">Gryphon</div></div>
-        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info" data-monster-key="monster_gawrilla">Gawrilla</div></div>
-        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info" data-monster-key="monster_gargantua">Gargantua</div></div>
-        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info" data-monster-key="monster_cottageroar">Cottageroar</div></div>
-        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info" data-monster-key="monster_arctic_flipper">Arctic Flipper</div></div>
+    <div class="monster-grid" id="monsterGrid">
+        <!-- Buttons will be generated by JavaScript -->
     </div>
 
     <footer>
@@ -83,7 +159,79 @@
     </footer>
 </div>
 
+<!-- Modal for showing monster image -->
+<div class="modal-overlay" id="monsterModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 id="modalTitle">Monster Name</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <img id="modalImage" class="modal-image" src="" alt="">
+    </div>
+</div>
+
 <script>
+    const monsters = [
+        { name: "Bon Appeti", image: "images/photo_AQADZA9rG92AgVR-.jpg" },
+        { name: "Queen Bee", image: "images/photo_AQADZQ9rG92AgVR-.jpg" },
+        { name: "Mega Maggot", image: "images/photo_AQADZg9rG92AgVR-.jpg" },
+        { name: "Hootclaw", image: "images/photo_AQADZw9rG92AgVR-.jpg" },
+        { name: "Tidal Titan", image: "images/photo_AQADaA9rG92AgVR-.jpg" },
+        { name: "Mecha Trojan", image: "images/photo_AQADaQ9rG92AgVR-.jpg" },
+        { name: "Grim Reaper", image: "images/photo_AQADag9rG92AgVR-.jpg" },
+        { name: "Blackwing", image: "images/photo_AQADaw9rG92AgVR-.jpg" },
+        { name: "Snow Beast", image: "images/photo_AQADbA9rG92AgVR-.jpg" },
+        { name: "Frostwing", image: "images/photo_AQADbQ9rG92AgVR-.jpg" },
+        { name: "Voodoo Shaman", image: "images/photo_AQADbg9rG92AgVR-.jpg" },
+        { name: "Terrorthorn", image: "images/photo_AQADbw9rG92AgVR-.jpg" },
+        { name: "Serpent Gladiator", image: "images/photo_AQADcA9rG92AgVR-.jpg" },
+        { name: "Saberfang", image: "images/photo_AQADcQ9rG92AgVR-.jpg" },
+        { name: "Noceros", image: "images/photo_AQADcg9rG92AgVR-.jpg" },
+        { name: "Jade Wyrm", image: "images/photo_AQADcw9rG92AgVR-.jpg" },
+        { name: "Hell Drider", image: "images/photo_AQADdA9rG92AgVR-.jpg" },
+        { name: "Hardrox", image: "images/photo_AQADdQ9rG92AgVR-.jpg" },
+        { name: "Gryphon", image: "images/photo_AQADdg9rG92AgVR-.jpg" },
+        { name: "Gawrilla", image: "images/photo_AQADdw9rG92AgVR-.jpg" },
+        { name: "Gargantua", image: "images/photo_AQADeA9rG92AgVR-.jpg" },
+        { name: "Cottageroar", image: "images/photo_AQADeQ9rG92AgVR-.jpg" },
+        { name: "Arctic Flipper", image: "images/photo_AQADeg9rG92AgVR-.jpg" },
+        { name: "Necrosis", image: "images/photo_AQADMQ9rG9P2gFV9.jpg" }
+    ];
+
+    // Generate monster buttons
+    const grid = document.getElementById('monsterGrid');
+    monsters.forEach(function(monster) {
+        const btn = document.createElement('button');
+        btn.className = 'monster-btn';
+        btn.textContent = monster.name;
+        btn.onclick = function() { showMonster(monster.name, monster.image); };
+        grid.appendChild(btn);
+    });
+
+    function showMonster(name, imageSrc) {
+        document.getElementById('modalTitle').textContent = name;
+        document.getElementById('modalImage').src = imageSrc;
+        document.getElementById('modalImage').alt = name;
+        document.getElementById('monsterModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(event) {
+        if (event && event.target !== document.getElementById('monsterModal') && !event.target.classList.contains('modal-close')) {
+            return;
+        }
+        document.getElementById('monsterModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('monsterModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
     function toggleMenu() {
         document.getElementById('navLinks').classList.toggle('active');
     }
