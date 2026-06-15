@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lords Mobile Guild Hunting Hero Lineups</title>
+    <title>Lords Mobile Guild Hunting Hero Lineups & Speedup Calculator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,6 +29,65 @@
             margin: 10px 0 0;
             opacity: 0.9;
         }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.8em;
+            color: #1e3c72;
+            border-bottom: 2px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+        /* Calculator Styles */
+        .calculator-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group label {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .result-box {
+            background: #e9f0f7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 5px solid #2a5298;
+        }
+        .result-box h2 {
+            margin: 0;
+            color: #1e3c72;
+            font-size: 1.5em;
+        }
+        .result-box p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        /* Gallery Styles */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -71,46 +130,97 @@
             .gallery {
                 grid-template-columns: 1fr;
             }
+            .calc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Lords Mobile Guild Hunting</h1>
-    <p>HephBot Hero Lineup Guides</p>
-</header>
+<div class="container">
+    <header>
+        <h1>Lords Mobile Hub</h1>
+        <p>Hero Lineup Guides & Speedup Calculator</p>
+    </header>
 
-<div class="gallery">
-    <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info"><h3>Necrosis</h3></div></div>
-    <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info"><h3>Bon Appeti</h3></div></div>
-    <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info"><h3>Queen Bee</h3></div></div>
-    <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info"><h3>Mega Maggot</h3></div></div>
-    <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info"><h3>Hootclaw</h3></div></div>
-    <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info"><h3>Tidal Titan</h3></div></div>
-    <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info"><h3>Mecha Trojan</h3></div></div>
-    <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info"><h3>Grim Reaper</h3></div></div>
-    <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info"><h3>Blackwing</h3></div></div>
-    <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info"><h3>Snow Beast</h3></div></div>
-    <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info"><h3>Frostwing</h3></div></div>
-    <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info"><h3>Voodoo Shaman</h3></div></div>
-    <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info"><h3>Terrorthorn</h3></div></div>
-    <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info"><h3>Serpent Gladiator</h3></div></div>
-    <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info"><h3>Saberfang</h3></div></div>
-    <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info"><h3>Noceros</h3></div></div>
-    <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info"><h3>Jade Wyrm</h3></div></div>
-    <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info"><h3>Hell Drider</h3></div></div>
-    <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info"><h3>Hardrox</h3></div></div>
-    <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info"><h3>Gryphon</h3></div></div>
-    <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info"><h3>Gawrilla</h3></div></div>
-    <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info"><h3>Gargantua</h3></div></div>
-    <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info"><h3>Cottageroar</h3></div></div>
-    <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info"><h3>Arctic Flipper</h3></div></div>
+    <div class="section-title">Speedup Calculator</div>
+    <div class="calculator-card">
+        <div class="calc-grid">
+            <div class="input-group"><label>1 Min</label><input type="number" min="0" placeholder="0" data-mins="1" oninput="calculate()"></div>
+            <div class="input-group"><label>3 Min</label><input type="number" min="0" placeholder="0" data-mins="3" oninput="calculate()"></div>
+            <div class="input-group"><label>5 Min</label><input type="number" min="0" placeholder="0" data-mins="5" oninput="calculate()"></div>
+            <div class="input-group"><label>10 Min</label><input type="number" min="0" placeholder="0" data-mins="10" oninput="calculate()"></div>
+            <div class="input-group"><label>15 Min</label><input type="number" min="0" placeholder="0" data-mins="15" oninput="calculate()"></div>
+            <div class="input-group"><label>30 Min</label><input type="number" min="0" placeholder="0" data-mins="30" oninput="calculate()"></div>
+            <div class="input-group"><label>60 Min (1h)</label><input type="number" min="0" placeholder="0" data-mins="60" oninput="calculate()"></div>
+            <div class="input-group"><label>3 Hours</label><input type="number" min="0" placeholder="0" data-mins="180" oninput="calculate()"></div>
+            <div class="input-group"><label>8 Hours</label><input type="number" min="0" placeholder="0" data-mins="480" oninput="calculate()"></div>
+            <div class="input-group"><label>15 Hours</label><input type="number" min="0" placeholder="0" data-mins="900" oninput="calculate()"></div>
+            <div class="input-group"><label>24 Hours (1d)</label><input type="number" min="0" placeholder="0" data-mins="1440" oninput="calculate()"></div>
+            <div class="input-group"><label>3 Days</label><input type="number" min="0" placeholder="0" data-mins="4320" oninput="calculate()"></div>
+            <div class="input-group"><label>7 Days</label><input type="number" min="0" placeholder="0" data-mins="10080" oninput="calculate()"></div>
+            <div class="input-group"><label>30 Days</label><input type="number" min="0" placeholder="0" data-mins="43200" oninput="calculate()"></div>
+        </div>
+        <div class="result-box">
+            <h2>Total Time</h2>
+            <p id="total-display">0 Days, 0 Hours, 0 Minutes</p>
+        </div>
+    </div>
+
+    <div class="section-title">Guild Hunting Hero Lineups</div>
+    <div class="gallery">
+        <div class="card"><img src="images/photo_AQADMQ9rG9P2gFV9.jpg" alt="Necrosis"><div class="card-info"><h3>Necrosis</h3></div></div>
+        <div class="card"><img src="images/photo_AQADZA9rG92AgVR-.jpg" alt="Bon Appeti"><div class="card-info"><h3>Bon Appeti</h3></div></div>
+        <div class="card"><img src="images/photo_AQADZQ9rG92AgVR-.jpg" alt="Queen Bee"><div class="card-info"><h3>Queen Bee</h3></div></div>
+        <div class="card"><img src="images/photo_AQADZg9rG92AgVR-.jpg" alt="Mega Maggot"><div class="card-info"><h3>Mega Maggot</h3></div></div>
+        <div class="card"><img src="images/photo_AQADZw9rG92AgVR-.jpg" alt="Hootclaw"><div class="card-info"><h3>Hootclaw</h3></div></div>
+        <div class="card"><img src="images/photo_AQADaA9rG92AgVR-.jpg" alt="Tidal Titan"><div class="card-info"><h3>Tidal Titan</h3></div></div>
+        <div class="card"><img src="images/photo_AQADaQ9rG92AgVR-.jpg" alt="Mecha Trojan"><div class="card-info"><h3>Mecha Trojan</h3></div></div>
+        <div class="card"><img src="images/photo_AQADag9rG92AgVR-.jpg" alt="Grim Reaper"><div class="card-info"><h3>Grim Reaper</h3></div></div>
+        <div class="card"><img src="images/photo_AQADaw9rG92AgVR-.jpg" alt="Blackwing"><div class="card-info"><h3>Blackwing</h3></div></div>
+        <div class="card"><img src="images/photo_AQADbA9rG92AgVR-.jpg" alt="Snow Beast"><div class="card-info"><h3>Snow Beast</h3></div></div>
+        <div class="card"><img src="images/photo_AQADbQ9rG92AgVR-.jpg" alt="Frostwing"><div class="card-info"><h3>Frostwing</h3></div></div>
+        <div class="card"><img src="images/photo_AQADbg9rG92AgVR-.jpg" alt="Voodoo Shaman"><div class="card-info"><h3>Voodoo Shaman</h3></div></div>
+        <div class="card"><img src="images/photo_AQADbw9rG92AgVR-.jpg" alt="Terrorthorn"><div class="card-info"><h3>Terrorthorn</h3></div></div>
+        <div class="card"><img src="images/photo_AQADcA9rG92AgVR-.jpg" alt="Serpent Gladiator"><div class="card-info"><h3>Serpent Gladiator</h3></div></div>
+        <div class="card"><img src="images/photo_AQADcQ9rG92AgVR-.jpg" alt="Saberfang"><div class="card-info"><h3>Saberfang</h3></div></div>
+        <div class="card"><img src="images/photo_AQADcg9rG92AgVR-.jpg" alt="Noceros"><div class="card-info"><h3>Noceros</h3></div></div>
+        <div class="card"><img src="images/photo_AQADcw9rG92AgVR-.jpg" alt="Jade Wyrm"><div class="card-info"><h3>Jade Wyrm</h3></div></div>
+        <div class="card"><img src="images/photo_AQADdA9rG92AgVR-.jpg" alt="Hell Drider"><div class="card-info"><h3>Hell Drider</h3></div></div>
+        <div class="card"><img src="images/photo_AQADdQ9rG92AgVR-.jpg" alt="Hardrox"><div class="card-info"><h3>Hardrox</h3></div></div>
+        <div class="card"><img src="images/photo_AQADdg9rG92AgVR-.jpg" alt="Gryphon"><div class="card-info"><h3>Gryphon</h3></div></div>
+        <div class="card"><img src="images/photo_AQADdw9rG92AgVR-.jpg" alt="Gawrilla"><div class="card-info"><h3>Gawrilla</h3></div></div>
+        <div class="card"><img src="images/photo_AQADeA9rG92AgVR-.jpg" alt="Gargantua"><div class="card-info"><h3>Gargantua</h3></div></div>
+        <div class="card"><img src="images/photo_AQADeQ9rG92AgVR-.jpg" alt="Cottageroar"><div class="card-info"><h3>Cottageroar</h3></div></div>
+        <div class="card"><img src="images/photo_AQADeg9rG92AgVR-.jpg" alt="Arctic Flipper"><div class="card-info"><h3>Arctic Flipper</h3></div></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lords Mobile Hub | jash0077</p>
+    </footer>
 </div>
 
-<footer>
-    <p>&copy; 2026 Lords Mobile Hunting Guides | jash0077</p>
-</footer>
+<script>
+    function calculate() {
+        let totalMinutes = 0;
+        const inputs = document.querySelectorAll('input[type="number"]');
+        
+        inputs.forEach(input => {
+            const quantity = parseInt(input.value) || 0;
+            const minutesPerUnit = parseInt(input.getAttribute('data-mins'));
+            totalMinutes += (quantity * minutesPerUnit);
+        });
+
+        const days = Math.floor(totalMinutes / (24 * 60));
+        const remainingMinutesAfterDays = totalMinutes % (24 * 60);
+        const hours = Math.floor(remainingMinutesAfterDays / 60);
+        const minutes = remainingMinutesAfterDays % 60;
+
+        document.getElementById('total-display').innerText = 
+            `${days} Days, ${hours} Hours, ${minutes} Minutes`;
+    }
+</script>
 
 </body>
 </html>
