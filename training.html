@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lords Mobile Hub - Training Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calculator-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .calculator h2 {
+            color: var(--dark-blue);
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+        
+        .calculator select,
+        .calculator input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .calculator select {
+            background: white;
+            cursor: pointer;
+        }
+        
+        .calculator input {
+            outline: none;
+        }
+        
+        .calculator input:focus {
+            border-color: var(--light-blue);
+            box-shadow: 0 0 5px rgba(42, 82, 152, 0.3);
+        }
+        
+        .calc-btn-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .calc-btn {
+            background: linear-gradient(to bottom, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            padding: 12px 60px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+        }
+        
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(30, 60, 114, 0.4);
+        }
+        
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            text-align: center;
+        }
+        
+        #result h3 {
+            margin: 0 0 15px 0;
+            color: #666;
+            font-size: 1em;
+            text-transform: uppercase;
+        }
+        
+        #result div {
+            font-size: 1.1em;
+            color: var(--dark-blue);
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 480px) {
+            .calculator-card {
+                padding: 15px;
+            }
+            
+            .calc-btn {
+                padding: 10px 40px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Lords Mobile Hub</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Speedup Calculator</a>
+        <a href="hunting.html">Monster Hunting</a>
+        <a href="training.html">Training Calculator</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="section-title">Training Calculator</div>
+    
+    <div class="calculator-card">
+        <div class="calculator">
+            <h2>Lords Mobile Training Calculator</h2>
+
+            <select id="tier">
+                <option value="T1">T1</option>
+                <option value="T2">T2</option>
+                <option value="T3">T3</option>
+                <option value="T4">T4</option>
+            </select>
+
+            <select id="type">
+                <option value="Infantry">Infantry</option>
+                <option value="Ranged">Ranged</option>
+                <option value="Cavalry">Cavalry</option>
+                <option value="Siege">Siege</option>
+            </select>
+
+            <input type="number" id="troops" placeholder="Troops">
+            
+            <div class="calc-btn-container">
+                <button class="calc-btn" onclick="calculate()">Calculate</button>
+            </div>
+
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lords Mobile Hub | jash0077</p>
+    </footer>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    const data = {
+        T1:{food:30,wood:30,stone:30,ore:30,gold:0},
+        T2:{food:60,wood:60,stone:60,ore:60,gold:3},
+        T3:{food:105,wood:105,stone:105,ore:105,gold:7},
+        T4:{food:700,wood:700,stone:700,ore:700,gold:350}
+    };
+
+    function calculate() {
+        let tier = document.getElementById("tier").value;
+        let type = document.getElementById("type").value;
+        let troops = parseInt(document.getElementById("troops").value);
+
+        if (isNaN(troops) || troops <= 0) {
+            document.getElementById("result").innerHTML = '<h3>Error</h3><div>Please enter a valid number of troops</div>';
+            return;
+        }
+
+        let d = data[tier];
+
+        let food = d.food * troops;
+        let wood = d.wood * troops;
+        let stone = d.stone * troops;
+        let ore = d.ore * troops;
+        let gold = d.gold * troops;
+
+        if(type === "Infantry"){
+            wood = 0;
+        }
+
+        if(type === "Cavalry"){
+            wood = 0;
+        }
+
+        if(type === "Ranged"){
+            ore = 0;
+        }
+
+        document.getElementById("result").innerHTML = `
+            <h3>Resources Needed</h3>
+            <div>Food: ${food.toLocaleString()}</div>
+            <div>Wood: ${wood.toLocaleString()}</div>
+            <div>Stone: ${stone.toLocaleString()}</div>
+            <div>Ore: ${ore.toLocaleString()}</div>
+            <div>Gold: ${gold.toLocaleString()}</div>
+        `;
+    }
+</script>
+
+</body>
+</html>
