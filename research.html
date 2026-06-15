@@ -35,15 +35,23 @@
         }
 
         .calc-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 8px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.2em;
+            font-size: 1em;
             color: white;
             flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .icon-label {
+            font-size: 0.65em;
+            font-weight: bold;
+            margin-top: 2px;
         }
 
         .calc-icon.days { background: linear-gradient(135deg, #e53935, #b71c1c); }
@@ -69,9 +77,9 @@
         }
 
         .calc-suffix {
-            color: #ccc;
-            font-weight: 600;
-            font-size: 1em;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1em;
         }
 
         .calc-or {
@@ -227,29 +235,26 @@
         <div class="calc-section-label">Original Time Required:</div>
 
         <div class="calc-input-row">
-            <div class="calc-icon days"><i class="fas fa-forward"></i></div>
+            <div class="calc-icon days"><i class="fas fa-forward"></i><br><span class="icon-label">Day</span></div>
             <input type="number" class="calc-input" id="inputDays" value="0" min="0">
-            <span class="calc-suffix">d</span>
         </div>
 
         <div class="calc-input-row">
-            <div class="calc-icon hours"><i class="fas fa-forward"></i></div>
+            <div class="calc-icon hours"><i class="fas fa-forward"></i><br><span class="icon-label">Hour</span></div>
             <input type="number" class="calc-input" id="inputHours" value="0" min="0">
-            <span class="calc-suffix">h</span>
         </div>
 
         <div class="calc-input-row">
-            <div class="calc-icon minutes"><i class="fas fa-forward"></i></div>
+            <div class="calc-icon minutes"><i class="fas fa-forward"></i><br><span class="icon-label">Min</span></div>
             <input type="number" class="calc-input" id="inputMinutes" value="0" min="0">
-            <span class="calc-suffix">m</span>
         </div>
 
         <div class="calc-section-label">Build/Research Boost:</div>
 
         <div class="calc-input-row">
-            <div class="calc-icon boost"><i class="fas fa-arrow-up"></i></div>
+            <div class="calc-icon boost"><i class="fas fa-arrow-up"></i><br><span class="icon-label">Build</span></div>
             <span class="calc-or">or</span>
-            <div class="calc-icon boost"><i class="fas fa-book"></i></div>
+            <div class="calc-icon boost"><i class="fas fa-book"></i><br><span class="icon-label">Research</span></div>
             <input type="number" class="calc-input" id="inputBoost" value="0" min="0">
             <span class="calc-suffix">%</span>
         </div>
@@ -257,7 +262,7 @@
         <div class="calc-section-label">Guild Helps:</div>
 
         <div class="calc-input-row">
-            <div class="calc-icon helps"><i class="fas fa-handshake"></i></div>
+            <div class="calc-icon helps"><i class="fas fa-handshake"></i><br><span class="icon-label">Helps</span></div>
             <input type="number" class="calc-input" id="inputHelps" value="0" min="0">
             <span class="calc-suffix">times</span>
         </div>
