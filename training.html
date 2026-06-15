@@ -6,103 +6,272 @@
     <title>Lords Mobile Hub - Training Calculator</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .calculator-card {
-            background: white;
+        .training-container {
+            background: rgba(30, 60, 114, 0.15);
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             margin-top: 20px;
         }
-        
-        .calculator {
+
+        .tabs {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(42, 82, 152, 0.2);
         }
-        
-        .calculator h2 {
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: var(--light-blue);
+            border-bottom-color: var(--light-blue);
+        }
+
+        .tab-btn:hover {
             color: var(--dark-blue);
-            margin: 0 0 10px 0;
-            text-align: center;
         }
-        
-        .calculator select,
-        .calculator input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .btn-toggle {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+
+        .btn-toggle:hover {
+            border-color: var(--light-blue);
+            color: var(--light-blue);
+        }
+
+        .btn-toggle.selected {
+            background: var(--light-blue);
+            color: white;
+            border-color: var(--light-blue);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             font-size: 1em;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.2s;
+            box-sizing: border-box;
         }
-        
-        .calculator select {
-            background: white;
-            cursor: pointer;
-        }
-        
-        .calculator input {
+
+        .input-field:focus {
             outline: none;
-        }
-        
-        .calculator input:focus {
             border-color: var(--light-blue);
-            box-shadow: 0 0 5px rgba(42, 82, 152, 0.3);
+            box-shadow: 0 0 8px rgba(42, 82, 152, 0.2);
         }
-        
-        .calc-btn-container {
-            text-align: center;
-            margin-top: 15px;
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        
-        .calc-btn {
-            background: linear-gradient(to bottom, #2a5298, #1e3c72);
+
+        @media (max-width: 600px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .button-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .btn-calculate {
+            flex: 1;
+            padding: 14px 24px;
+            background: linear-gradient(to bottom, #ff9800, #f57c00);
             color: white;
             border: none;
-            padding: 12px 60px;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 1.05em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
         }
-        
-        .calc-btn:hover {
+
+        .btn-calculate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(30, 60, 114, 0.4);
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
         }
-        
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
+
+        .btn-clear {
+            flex: 1;
+            padding: 14px 24px;
+            background: linear-gradient(to bottom, #00bcd4, #0097a7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3);
+        }
+
+        .btn-clear:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .results-section {
+            background: white;
             border-radius: 10px;
-            border: 1px dashed #ccc;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid #eee;
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
             text-align: center;
         }
-        
-        #result h3 {
-            margin: 0 0 15px 0;
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--light-blue);
+        }
+
+        .result-label {
+            font-size: 0.85em;
             color: #666;
-            font-size: 1em;
             text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-        
-        #result div {
-            font-size: 1.1em;
+
+        .result-value {
+            font-size: 1.4em;
             color: var(--dark-blue);
-            margin: 8px 0;
-            font-weight: 500;
+            font-weight: bold;
         }
-        
+
+        .result-item.gems {
+            border-left-color: #ffc107;
+        }
+
+        .result-item.speedup {
+            border-left-color: #ff5722;
+        }
+
+        .result-item.food {
+            border-left-color: #8bc34a;
+        }
+
+        .result-item.wood {
+            border-left-color: #795548;
+        }
+
+        .result-item.stone {
+            border-left-color: #9e9e9e;
+        }
+
+        .result-item.ore {
+            border-left-color: #607d8b;
+        }
+
+        .result-item.gold {
+            border-left-color: #ffc107;
+        }
+
+        .info-text {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+            text-align: center;
+            font-style: italic;
+        }
+
         @media (max-width: 480px) {
-            .calculator-card {
+            .training-container {
                 padding: 15px;
             }
-            
-            .calc-btn {
-                padding: 10px 40px;
-                font-size: 1em;
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .button-actions {
+                flex-direction: column;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -123,31 +292,135 @@
 <div class="container">
     <div class="section-title">Training Calculator</div>
     
-    <div class="calculator-card">
-        <div class="calculator">
-            <h2>Lords Mobile Training Calculator</h2>
+    <div class="training-container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">No. of Speed Ups</button>
+            <button class="tab-btn" onclick="switchTab(1)">No. of Troops</button>
+        </div>
 
-            <select id="tier">
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-            </select>
-
-            <select id="type">
-                <option value="Infantry">Infantry</option>
-                <option value="Ranged">Ranged</option>
-                <option value="Cavalry">Cavalry</option>
-                <option value="Siege">Siege</option>
-            </select>
-
-            <input type="number" id="troops" placeholder="Troops">
-            
-            <div class="calc-btn-container">
-                <button class="calc-btn" onclick="calculate()">Calculate</button>
+        <!-- Tab 1: Calculate Speed Ups -->
+        <div class="tab-content active">
+            <div class="input-group">
+                <label class="input-label">Troop Tier</label>
+                <div class="button-group" id="tierGroup1">
+                    <button class="btn-toggle selected" onclick="selectTier(this, 'T1', 0)">T1</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T2', 0)">T2</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T3', 0)">T3</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T4', 0)">T4</button>
+                </div>
             </div>
 
-            <div id="result"></div>
+            <div class="input-group">
+                <label class="input-label">Troop Type</label>
+                <div class="button-group" id="typeGroup1">
+                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 0)">Infantry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 0)">Ranged</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 0)">Cavalry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 0)">Siege</button>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label class="input-label">Number of Troops</label>
+                    <input type="number" class="input-field" id="troops1" placeholder="Enter number of troops" value="1000" min="0">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Training Speed (%)</label>
+                    <input type="number" class="input-field" id="trainingSpeed1" placeholder="0" value="0" min="0" max="1000">
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label class="input-label">Subsidy (%)</label>
+                    <input type="number" class="input-field" id="subsidy1" placeholder="0" value="0" min="0" max="100">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Calculate Troops -->
+        <div class="tab-content">
+            <div class="input-group">
+                <label class="input-label">Troop Tier</label>
+                <div class="button-group" id="tierGroup2">
+                    <button class="btn-toggle selected" onclick="selectTier(this, 'T1', 1)">T1</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T2', 1)">T2</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T3', 1)">T3</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T4', 1)">T4</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Troop Type</label>
+                <div class="button-group" id="typeGroup2">
+                    <button class="btn-toggle selected" onclick="selectType(this, 'Infantry', 1)">Infantry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Ranged', 1)">Ranged</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Cavalry', 1)">Cavalry</button>
+                    <button class="btn-toggle" onclick="selectType(this, 'Siege', 1)">Siege</button>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label class="input-label">Speed Ups (format: 0d4h10m)</label>
+                    <input type="text" class="input-field" id="speedups2" placeholder="e.g., 1d2h30m" value="0d4h10m">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Training Speed (%)</label>
+                    <input type="number" class="input-field" id="trainingSpeed2" placeholder="0" value="0" min="0" max="1000">
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label class="input-label">Subsidy (%)</label>
+                    <input type="number" class="input-field" id="subsidy2" placeholder="0" value="0" min="0" max="100">
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-actions">
+            <button class="btn-calculate" onclick="calculate()">Calculate</button>
+            <button class="btn-clear" onclick="clearAll()">Clear All</button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-title">Results</div>
+            <div class="results-grid">
+                <div class="result-item gems">
+                    <div class="result-label">Gems Required</div>
+                    <div class="result-value" id="gemsResult">0</div>
+                </div>
+                <div class="result-item speedup">
+                    <div class="result-label">Speed Ups Required</div>
+                    <div class="result-value" id="speedupResult">0d0h0m</div>
+                </div>
+                <div class="result-item food">
+                    <div class="result-label">Food Required</div>
+                    <div class="result-value" id="foodResult">0</div>
+                </div>
+                <div class="result-item wood">
+                    <div class="result-label">Timber (Wood) Required</div>
+                    <div class="result-value" id="woodResult">0</div>
+                </div>
+                <div class="result-item stone">
+                    <div class="result-label">Stones Required</div>
+                    <div class="result-value" id="stoneResult">0</div>
+                </div>
+                <div class="result-item ore">
+                    <div class="result-label">Ore Required</div>
+                    <div class="result-value" id="oreResult">0</div>
+                </div>
+                <div class="result-item gold">
+                    <div class="result-label">Gold Required</div>
+                    <div class="result-value" id="goldResult">0</div>
+                </div>
+            </div>
+            <div class="info-text">* All calculations based on current input values</div>
         </div>
     </div>
 
@@ -157,55 +430,234 @@
 </div>
 
 <script>
+    // State management
+    let currentTab = 0;
+    let selectedTier = ['T1', 'T1'];
+    let selectedType = ['Infantry', 'Infantry'];
+
+    // Base data
+    const baseData = {
+        T1: { food: 30, wood: 30, stone: 30, ore: 30, gold: 0, time: 15 },
+        T2: { food: 60, wood: 60, stone: 60, ore: 60, gold: 3, time: 30 },
+        T3: { food: 105, wood: 105, stone: 105, ore: 105, gold: 7, time: 60 },
+        T4: { food: 700, wood: 700, stone: 700, ore: 700, gold: 350, time: 120 }
+    };
+
     function toggleMenu() {
         document.getElementById('navLinks').classList.toggle('active');
     }
 
-    const data = {
-        T1:{food:30,wood:30,stone:30,ore:30,gold:0},
-        T2:{food:60,wood:60,stone:60,ore:60,gold:3},
-        T3:{food:105,wood:105,stone:105,ore:105,gold:7},
-        T4:{food:700,wood:700,stone:700,ore:700,gold:350}
-    };
+    function switchTab(tabIndex) {
+        currentTab = tabIndex;
+        const tabs = document.querySelectorAll('.tab-content');
+        const buttons = document.querySelectorAll('.tab-btn');
+        
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle('active', i === tabIndex);
+        });
+        
+        buttons.forEach((btn, i) => {
+            btn.classList.toggle('active', i === tabIndex);
+        });
+    }
+
+    function selectTier(button, tier, tabIndex) {
+        selectedTier[tabIndex] = tier;
+        const group = document.getElementById(`tierGroup${tabIndex + 1}`);
+        group.querySelectorAll('.btn-toggle').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        button.classList.add('selected');
+    }
+
+    function selectType(button, type, tabIndex) {
+        selectedType[tabIndex] = type;
+        const group = document.getElementById(`typeGroup${tabIndex + 1}`);
+        group.querySelectorAll('.btn-toggle').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        button.classList.add('selected');
+    }
+
+    function formatTime(seconds) {
+        const days = Math.floor(seconds / 86400);
+        const hours = Math.floor((seconds % 86400) / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        return `${days}d${hours}h${minutes}m`;
+    }
+
+    function parseTime(timeStr) {
+        // Parse format like "1d2h30m"
+        const dayMatch = timeStr.match(/(\d+)d/);
+        const hourMatch = timeStr.match(/(\d+)h/);
+        const minMatch = timeStr.match(/(\d+)m/);
+        
+        const days = dayMatch ? parseInt(dayMatch[1]) : 0;
+        const hours = hourMatch ? parseInt(hourMatch[1]) : 0;
+        const minutes = minMatch ? parseInt(minMatch[1]) : 0;
+        
+        return days * 86400 + hours * 3600 + minutes * 60;
+    }
+
+    function applyResourceExceptions(resources, type) {
+        const res = { ...resources };
+        if (type === 'Infantry') {
+            res.wood = 0;
+        } else if (type === 'Cavalry') {
+            res.wood = 0;
+        } else if (type === 'Ranged') {
+            res.ore = 0;
+        }
+        return res;
+    }
 
     function calculate() {
-        let tier = document.getElementById("tier").value;
-        let type = document.getElementById("type").value;
-        let troops = parseInt(document.getElementById("troops").value);
-
-        if (isNaN(troops) || troops <= 0) {
-            document.getElementById("result").innerHTML = '<h3>Error</h3><div>Please enter a valid number of troops</div>';
-            return;
+        const resultsSection = document.getElementById('resultsSection');
+        
+        try {
+            if (currentTab === 0) {
+                // Calculate Speed Ups needed
+                const troops = parseInt(document.getElementById('troops1').value) || 0;
+                const trainingSpeed = parseFloat(document.getElementById('trainingSpeed1').value) || 0;
+                const subsidy = parseFloat(document.getElementById('subsidy1').value) || 0;
+                
+                if (troops <= 0) {
+                    alert('Please enter a valid number of troops');
+                    return;
+                }
+                
+                const tier = selectedTier[0];
+                const type = selectedType[0];
+                const baseResources = baseData[tier];
+                
+                // Calculate training time
+                const totalBaseTime = baseResources.time * troops;
+                const actualTime = totalBaseTime / (1 + trainingSpeed / 100);
+                
+                // Calculate resources
+                let resources = {
+                    food: baseResources.food * troops,
+                    wood: baseResources.wood * troops,
+                    stone: baseResources.stone * troops,
+                    ore: baseResources.ore * troops,
+                    gold: baseResources.gold * troops
+                };
+                
+                resources = applyResourceExceptions(resources, type);
+                
+                // Apply subsidy
+                resources.food = Math.ceil(resources.food * (1 - subsidy / 100));
+                resources.wood = Math.ceil(resources.wood * (1 - subsidy / 100));
+                resources.stone = Math.ceil(resources.stone * (1 - subsidy / 100));
+                resources.ore = Math.ceil(resources.ore * (1 - subsidy / 100));
+                resources.gold = Math.ceil(resources.gold * (1 - subsidy / 100));
+                
+                // Calculate gems (1 gem = 1.5 minutes)
+                const totalMinutes = actualTime / 60;
+                const gems = Math.ceil(totalMinutes / 1.5);
+                
+                // Display results
+                document.getElementById('gemsResult').textContent = gems.toLocaleString();
+                document.getElementById('speedupResult').textContent = formatTime(actualTime);
+                document.getElementById('foodResult').textContent = resources.food.toLocaleString();
+                document.getElementById('woodResult').textContent = resources.wood.toLocaleString();
+                document.getElementById('stoneResult').textContent = resources.stone.toLocaleString();
+                document.getElementById('oreResult').textContent = resources.ore.toLocaleString();
+                document.getElementById('goldResult').textContent = resources.gold.toLocaleString();
+                
+            } else {
+                // Calculate Troops from Speed Ups
+                const speedupStr = document.getElementById('speedups2').value || '0d0h0m';
+                const trainingSpeed = parseFloat(document.getElementById('trainingSpeed2').value) || 0;
+                const subsidy = parseFloat(document.getElementById('subsidy2').value) || 0;
+                
+                const speedupSeconds = parseTime(speedupStr);
+                
+                const tier = selectedTier[1];
+                const type = selectedType[1];
+                const baseResources = baseData[tier];
+                const baseTime = baseResources.time;
+                
+                // Calculate troops: actualTime = totalBaseTime / (1 + trainingSpeed/100)
+                // totalBaseTime = baseTime * troops
+                // troops = actualTime * (1 + trainingSpeed/100) / baseTime
+                const troops = Math.floor(speedupSeconds * (1 + trainingSpeed / 100) / baseTime);
+                
+                if (troops <= 0) {
+                    alert('Invalid speed up time format. Use format like: 1d2h30m');
+                    return;
+                }
+                
+                // Calculate resources
+                let resources = {
+                    food: baseResources.food * troops,
+                    wood: baseResources.wood * troops,
+                    stone: baseResources.stone * troops,
+                    ore: baseResources.ore * troops,
+                    gold: baseResources.gold * troops
+                };
+                
+                resources = applyResourceExceptions(resources, type);
+                
+                // Apply subsidy
+                resources.food = Math.ceil(resources.food * (1 - subsidy / 100));
+                resources.wood = Math.ceil(resources.wood * (1 - subsidy / 100));
+                resources.stone = Math.ceil(resources.stone * (1 - subsidy / 100));
+                resources.ore = Math.ceil(resources.ore * (1 - subsidy / 100));
+                resources.gold = Math.ceil(resources.gold * (1 - subsidy / 100));
+                
+                // Calculate gems
+                const totalMinutes = speedupSeconds / 60;
+                const gems = Math.ceil(totalMinutes / 1.5);
+                
+                // Display results
+                document.getElementById('gemsResult').textContent = gems.toLocaleString();
+                document.getElementById('speedupResult').textContent = formatTime(speedupSeconds);
+                document.getElementById('foodResult').textContent = resources.food.toLocaleString();
+                document.getElementById('woodResult').textContent = resources.wood.toLocaleString();
+                document.getElementById('stoneResult').textContent = resources.stone.toLocaleString();
+                document.getElementById('oreResult').textContent = resources.ore.toLocaleString();
+                document.getElementById('goldResult').textContent = resources.gold.toLocaleString();
+            }
+            
+            resultsSection.classList.add('show');
+        } catch (error) {
+            alert('Error in calculation. Please check your inputs.');
+            console.error(error);
         }
+    }
 
-        let d = data[tier];
-
-        let food = d.food * troops;
-        let wood = d.wood * troops;
-        let stone = d.stone * troops;
-        let ore = d.ore * troops;
-        let gold = d.gold * troops;
-
-        if(type === "Infantry"){
-            wood = 0;
-        }
-
-        if(type === "Cavalry"){
-            wood = 0;
-        }
-
-        if(type === "Ranged"){
-            ore = 0;
-        }
-
-        document.getElementById("result").innerHTML = `
-            <h3>Resources Needed</h3>
-            <div>Food: ${food.toLocaleString()}</div>
-            <div>Wood: ${wood.toLocaleString()}</div>
-            <div>Stone: ${stone.toLocaleString()}</div>
-            <div>Ore: ${ore.toLocaleString()}</div>
-            <div>Gold: ${gold.toLocaleString()}</div>
-        `;
+    function clearAll() {
+        // Clear Tab 1
+        document.getElementById('troops1').value = '1000';
+        document.getElementById('trainingSpeed1').value = '0';
+        document.getElementById('subsidy1').value = '0';
+        
+        // Clear Tab 2
+        document.getElementById('speedups2').value = '0d4h10m';
+        document.getElementById('trainingSpeed2').value = '0';
+        document.getElementById('subsidy2').value = '0';
+        
+        // Reset selections
+        selectedTier = ['T1', 'T1'];
+        selectedType = ['Infantry', 'Infantry'];
+        
+        // Reset buttons
+        document.querySelectorAll('#tierGroup1 .btn-toggle').forEach((btn, i) => {
+            btn.classList.toggle('selected', i === 0);
+        });
+        document.querySelectorAll('#typeGroup1 .btn-toggle').forEach((btn, i) => {
+            btn.classList.toggle('selected', i === 0);
+        });
+        document.querySelectorAll('#tierGroup2 .btn-toggle').forEach((btn, i) => {
+            btn.classList.toggle('selected', i === 0);
+        });
+        document.querySelectorAll('#typeGroup2 .btn-toggle').forEach((btn, i) => {
+            btn.classList.toggle('selected', i === 0);
+        });
+        
+        // Hide results
+        document.getElementById('resultsSection').classList.remove('show');
     }
 </script>
 
