@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troops Calculator - Lords Mobile Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f1419;
+            --primary-darker: #0a0d12;
+            --accent-gold: #d4af37;
+            --accent-orange: #ff9800;
+            --accent-blue: #2a5298;
+            --glass-light: rgba(255, 255, 255, 0.1);
+            --glass-medium: rgba(255, 255, 255, 0.15);
+            --glass-dark: rgba(0, 0, 0, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-darker) 0%, #1a1f2e 50%, var(--primary-dark) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(42, 82, 152, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 152, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            background: rgba(10, 13, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .controls-section {
+            background: var(--glass-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        .tier-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tier-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--border-color);
+            background: var(--glass-light);
+            color: var(--text-secondary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .tier-btn:hover::before {
+            left: 100%;
+        }
+
+        .tier-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .tier-btn.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(255, 152, 0, 0.3));
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .troop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .troop-card {
+            background: var(--glass-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .troop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 152, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .troop-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .troop-card:hover::before {
+            opacity: 1;
+        }
+
+        .troop-image-container {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(42, 82, 152, 0.2), rgba(255, 152, 0, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .troop-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .troop-card:hover .troop-image {
+            transform: scale(1.1);
+        }
+
+        .troop-info {
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .troop-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .troop-category {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .troop-count-display {
+            background: var(--glass-dark);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .count-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .count-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Courier New', monospace;
+        }
+
+        .troop-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--glass-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .troop-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            background: var(--glass-medium);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.6rem;
+            background: var(--glass-light);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-small:hover {
+            background: var(--glass-medium);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-quick-add {
+            padding: 0.6rem;
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.3), rgba(212, 175, 55, 0.3));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent-orange);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-quick-add:hover {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.5), rgba(212, 175, 55, 0.5));
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .quick-add-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 0.6rem;
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.3), rgba(200, 30, 50, 0.3));
+            border: 1px solid rgba(220, 53, 69, 0.4);
+            color: #ff6b6b;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.5), rgba(200, 30, 50, 0.5));
+            border-color: #ff6b6b;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            background: var(--glass-medium);
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-light);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .results-section {
+            background: var(--glass-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            display: none;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .result-item {
+            background: var(--glass-light);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .troop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .tier-tabs {
+                gap: 0.5rem;
+            }
+
+            .tier-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">⚔️ Lords Mobile Hub</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="troops-calculator.html">Troops Calculator</a>
+                <a href="composition.html">Composition</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>Troops Calculator</h1>
+            <p>Track and manage your troop counts across all tiers</p>
+        </div>
+
+        <div class="controls-section">
+            <div class="tier-tabs">
+                <button class="tier-btn active" onclick="switchTier(1)">T1</button>
+                <button class="tier-btn" onclick="switchTier(2)">T2</button>
+                <button class="tier-btn" onclick="switchTier(3)">T3</button>
+                <button class="tier-btn" onclick="switchTier(4)">T4</button>
+            </div>
+
+            <div id="tier-1" class="tier-panel" style="display: block;">
+                <div class="troop-grid">
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t1_grunt.png" alt="Grunt" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Grunt</div>
+                            <div class="troop-category">Infantry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t1-grunt">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t1-grunt" value="0" placeholder="Enter count" onchange="updateDisplay('t1-grunt')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t1-grunt', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t1-grunt', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-grunt', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-grunt', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-grunt', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t1-grunt')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t1_archer.jpg" alt="Archer" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Archer</div>
+                            <div class="troop-category">Ranged</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t1-archer">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t1-archer" value="0" placeholder="Enter count" onchange="updateDisplay('t1-archer')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t1-archer', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t1-archer', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-archer', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-archer', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-archer', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t1-archer')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t1_cataphract.png" alt="Cataphract" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Cataphract</div>
+                            <div class="troop-category">Cavalry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t1-cataphract">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t1-cataphract" value="0" placeholder="Enter count" onchange="updateDisplay('t1-cataphract')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t1-cataphract', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t1-cataphract', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-cataphract', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-cataphract', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-cataphract', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t1-cataphract')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t1_ballista.png" alt="Ballista" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Ballista</div>
+                            <div class="troop-category">Siege</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t1-ballista">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t1-ballista" value="0" placeholder="Enter count" onchange="updateDisplay('t1-ballista')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t1-ballista', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t1-ballista', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-ballista', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-ballista', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t1-ballista', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t1-ballista')">✕ Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier-2" class="tier-panel" style="display: none;">
+                <div class="troop-grid">
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t2_gladiator.png" alt="Gladiator" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Gladiator</div>
+                            <div class="troop-category">Infantry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t2-gladiator">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t2-gladiator" value="0" placeholder="Enter count" onchange="updateDisplay('t2-gladiator')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t2-gladiator', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t2-gladiator', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-gladiator', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-gladiator', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-gladiator', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t2-gladiator')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t2_sharpshooter.png" alt="Sharpshooter" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Sharpshooter</div>
+                            <div class="troop-category">Ranged</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t2-sharpshooter">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t2-sharpshooter" value="0" placeholder="Enter count" onchange="updateDisplay('t2-sharpshooter')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t2-sharpshooter', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t2-sharpshooter', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-sharpshooter', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-sharpshooter', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-sharpshooter', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t2-sharpshooter')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t2_reptilian_rider.png" alt="Reptilian Rider" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Reptilian Rider</div>
+                            <div class="troop-category">Cavalry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t2-reptilian-rider">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t2-reptilian-rider" value="0" placeholder="Enter count" onchange="updateDisplay('t2-reptilian-rider')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t2-reptilian-rider', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t2-reptilian-rider', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-reptilian-rider', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-reptilian-rider', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-reptilian-rider', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t2-reptilian-rider')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t2_catapult.png" alt="Catapult" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Catapult</div>
+                            <div class="troop-category">Siege</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t2-catapult">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t2-catapult" value="0" placeholder="Enter count" onchange="updateDisplay('t2-catapult')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t2-catapult', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t2-catapult', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-catapult', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-catapult', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t2-catapult', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t2-catapult')">✕ Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier-3" class="tier-panel" style="display: none;">
+                <div class="troop-grid">
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t3_royal_guard.png" alt="Royal Guard" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Royal Guard</div>
+                            <div class="troop-category">Infantry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t3-royal-guard">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t3-royal-guard" value="0" placeholder="Enter count" onchange="updateDisplay('t3-royal-guard')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t3-royal-guard', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t3-royal-guard', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-guard', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-guard', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-guard', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t3-royal-guard')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t3_stealth_sniper.jpg" alt="Stealth Sniper" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Stealth Sniper</div>
+                            <div class="troop-category">Ranged</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t3-stealth-sniper">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t3-stealth-sniper" value="0" placeholder="Enter count" onchange="updateDisplay('t3-stealth-sniper')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t3-stealth-sniper', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t3-stealth-sniper', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-stealth-sniper', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-stealth-sniper', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-stealth-sniper', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t3-stealth-sniper')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t3_royal_cavalry.png" alt="Royal Cavalry" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Royal Cavalry</div>
+                            <div class="troop-category">Cavalry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t3-royal-cavalry">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t3-royal-cavalry" value="0" placeholder="Enter count" onchange="updateDisplay('t3-royal-cavalry')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t3-royal-cavalry', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t3-royal-cavalry', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-cavalry', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-cavalry', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-royal-cavalry', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t3-royal-cavalry')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t3_fire_trebuchet.png" alt="Fire Trebuchet" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Fire Trebuchet</div>
+                            <div class="troop-category">Siege</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t3-fire-trebuchet">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t3-fire-trebuchet" value="0" placeholder="Enter count" onchange="updateDisplay('t3-fire-trebuchet')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t3-fire-trebuchet', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t3-fire-trebuchet', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-fire-trebuchet', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-fire-trebuchet', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t3-fire-trebuchet', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t3-fire-trebuchet')">✕ Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier-4" class="tier-panel" style="display: none;">
+                <div class="troop-grid">
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t4_heroic_fighter.png" alt="Heroic Fighter" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Heroic Fighter</div>
+                            <div class="troop-category">Infantry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t4-heroic-fighter">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t4-heroic-fighter" value="0" placeholder="Enter count" onchange="updateDisplay('t4-heroic-fighter')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t4-heroic-fighter', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t4-heroic-fighter', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-fighter', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-fighter', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-fighter', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t4-heroic-fighter')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t4_heroic_cannoneer.png" alt="Heroic Cannoneer" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Heroic Cannoneer</div>
+                            <div class="troop-category">Ranged</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t4-heroic-cannoneer">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t4-heroic-cannoneer" value="0" placeholder="Enter count" onchange="updateDisplay('t4-heroic-cannoneer')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t4-heroic-cannoneer', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t4-heroic-cannoneer', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-cannoneer', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-cannoneer', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-heroic-cannoneer', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t4-heroic-cannoneer')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t4_ancient_drake_rider.png" alt="Ancient Drake Rider" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Ancient Drake Rider</div>
+                            <div class="troop-category">Cavalry</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t4-ancient-drake-rider">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t4-ancient-drake-rider" value="0" placeholder="Enter count" onchange="updateDisplay('t4-ancient-drake-rider')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t4-ancient-drake-rider', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t4-ancient-drake-rider', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-ancient-drake-rider', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-ancient-drake-rider', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-ancient-drake-rider', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t4-ancient-drake-rider')">✕ Reset</button>
+                    </div>
+
+                    <div class="troop-card">
+                        <div class="troop-image-container">
+                            <img src="images/troops_new/t4_destroyer.png" alt="Destroyer" class="troop-image">
+                        </div>
+                        <div class="troop-info">
+                            <div class="troop-name">Destroyer</div>
+                            <div class="troop-category">Siege</div>
+                        </div>
+                        <div class="troop-count-display">
+                            <div class="count-label">Count</div>
+                            <div class="count-value" id="display-t4-destroyer">0</div>
+                        </div>
+                        <input type="number" class="troop-input" id="input-t4-destroyer" value="0" placeholder="Enter count" onchange="updateDisplay('t4-destroyer')">
+                        <div class="button-group">
+                            <button class="btn-small" onclick="adjustTroop('t4-destroyer', -1)">−1K</button>
+                            <button class="btn-small" onclick="adjustTroop('t4-destroyer', 1)">+1K</button>
+                        </div>
+                        <div class="quick-add-buttons">
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-destroyer', 100)">+100K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-destroyer', 500)">+500K</button>
+                            <button class="btn-quick-add" onclick="adjustTroop('t4-destroyer', 1000)">+1M</button>
+                        </div>
+                        <button class="btn-reset" onclick="resetTroop('t4-destroyer')">✕ Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="calculateTotals()">📊 Calculate Totals</button>
+                <button class="btn-secondary" onclick="resetAll()">🗑️ Reset All</button>
+            </div>
+        </div>
+
+        <div class="results-section" id="results">
+            <div class="results-title">Total Troops Summary</div>
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="result-label">T1 Total</div>
+                    <div class="result-value" id="result-t1">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">T2 Total</div>
+                    <div class="result-value" id="result-t2">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">T3 Total</div>
+                    <div class="result-value" id="result-t3">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">T4 Total</div>
+                    <div class="result-value" id="result-t4">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Grand Total</div>
+                    <div class="result-value" id="result-total">0</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Lords Mobile Hub | <a href="admin.html">jash0077</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function switchTier(tier) {
+            // Hide all tier panels
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`tier-${i}`).style.display = 'none';
+            }
+            // Show selected tier
+            document.getElementById(`tier-${tier}`).style.display = 'block';
+
+            // Update active button
+            document.querySelectorAll('.tier-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === tier - 1);
+            });
+        }
+
+        function updateDisplay(troopId) {
+            const input = document.getElementById(`input-${troopId}`);
+            const display = document.getElementById(`display-${troopId}`);
+            const value = parseInt(input.value) || 0;
+            display.textContent = value.toLocaleString();
+        }
+
+        function adjustTroop(troopId, amount) {
+            const input = document.getElementById(`input-${troopId}`);
+            const currentValue = parseInt(input.value) || 0;
+            const newValue = Math.max(0, currentValue + amount * 1000);
+            input.value = newValue;
+            updateDisplay(troopId);
+        }
+
+        function resetTroop(troopId) {
+            const input = document.getElementById(`input-${troopId}`);
+            input.value = 0;
+            updateDisplay(troopId);
+        }
+
+        function resetAll() {
+            document.querySelectorAll('.troop-input').forEach(input => {
+                input.value = 0;
+                const troopId = input.id.replace('input-', '');
+                updateDisplay(troopId);
+            });
+            document.getElementById('results').classList.remove('show');
+        }
+
+        function calculateTotals() {
+            const tiers = {
+                t1: ['t1-grunt', 't1-archer', 't1-cataphract', 't1-ballista'],
+                t2: ['t2-gladiator', 't2-sharpshooter', 't2-reptilian-rider', 't2-catapult'],
+                t3: ['t3-royal-guard', 't3-stealth-sniper', 't3-royal-cavalry', 't3-fire-trebuchet'],
+                t4: ['t4-heroic-fighter', 't4-heroic-cannoneer', 't4-ancient-drake-rider', 't4-destroyer']
+            };
+
+            let totals = { t1: 0, t2: 0, t3: 0, t4: 0 };
+            let grandTotal = 0;
+
+            for (const [tier, troops] of Object.entries(tiers)) {
+                troops.forEach(troopId => {
+                    const value = parseInt(document.getElementById(`input-${troopId}`).value) || 0;
+                    totals[tier] += value;
+                });
+                grandTotal += totals[tier];
+            }
+
+            document.getElementById('result-t1').textContent = totals.t1.toLocaleString();
+            document.getElementById('result-t2').textContent = totals.t2.toLocaleString();
+            document.getElementById('result-t3').textContent = totals.t3.toLocaleString();
+            document.getElementById('result-t4').textContent = totals.t4.toLocaleString();
+            document.getElementById('result-total').textContent = grandTotal.toLocaleString();
+
+            document.getElementById('results').classList.add('show');
+        }
+
+        // Load saved data from localStorage
+        window.addEventListener('load', () => {
+            const savedData = localStorage.getItem('troopsCalculatorData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                for (const [troopId, value] of Object.entries(data)) {
+                    const input = document.getElementById(`input-${troopId}`);
+                    if (input) {
+                        input.value = value;
+                        updateDisplay(troopId);
+                    }
+                }
+            }
+        });
+
+        // Save data to localStorage on change
+        document.addEventListener('change', (e) => {
+            if (e.target.classList.contains('troop-input')) {
+                const data = {};
+                document.querySelectorAll('.troop-input').forEach(input => {
+                    const troopId = input.id.replace('input-', '');
+                    data[troopId] = parseInt(input.value) || 0;
+                });
+                localStorage.setItem('troopsCalculatorData', JSON.stringify(data));
+            }
+        });
+    </script>
+</body>
+</html>
