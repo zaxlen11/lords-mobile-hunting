@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle" data-page-key="training_calculator"></title>
+    <title id="pageTitle" data-page-key="training_calculator">Training Calculator - Lords Mobile Hub</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -217,33 +217,14 @@
             font-weight: bold;
         }
 
-        .result-item.gems {
-            border-left-color: #ffc107;
-        }
-
-        .result-item.speedup {
-            border-left-color: #ff5722;
-        }
-
-        .result-item.food {
-            border-left-color: #8bc34a;
-        }
-
-        .result-item.wood {
-            border-left-color: #795548;
-        }
-
-        .result-item.stone {
-            border-left-color: #9e9e9e;
-        }
-
-        .result-item.ore {
-            border-left-color: #607d8b;
-        }
-
-        .result-item.gold {
-            border-left-color: #ffc107;
-        }
+        .result-item.gems { border-left-color: #ffc107; }
+        .result-item.speedup { border-left-color: #ff5722; }
+        .result-item.food { border-left-color: #8bc34a; }
+        .result-item.wood { border-left-color: #795548; }
+        .result-item.stone { border-left-color: #9e9e9e; }
+        .result-item.ore { border-left-color: #607d8b; }
+        .result-item.gold { border-left-color: #ffc107; }
+        .result-item.lunite { border-left-color: #03a9f4; }
 
         .info-text {
             font-size: 0.85em;
@@ -252,38 +233,7 @@
             text-align: center;
             font-style: italic;
         }
-
-        @media (max-width: 480px) {
-            .training-container {
-                padding: 15px;
-            }
-
-            .tabs {
-                gap: 5px;
-            }
-
-            .tab-btn {
-                padding: 10px 15px;
-                font-size: 0.9em;
-            }
-
-            .button-actions {
-                flex-direction: column;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6GVRLX79L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-C6GVRLX79L');
-    </script>
 </head>
 <body>
 
@@ -303,12 +253,8 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <nav class="nav-links" id="navLinks">
         <a href="index.html" data-translate-key="home">Home</a>
-        <a href="calculator.html" data-translate-key="speedup_calculator">Speedup Calculator</a>
-        <a href="hunting.html" data-translate-key="monster_hunting">Monster Hunting</a>
+        <a href="troops-calculator.html">Troops Calculator</a>
         <a href="training.html" data-translate-key="training_calculator">Training Calculator</a>
-        <a href="composition.html">Troop Composition</a>
-        <a href="migration.html">Migration Guide</a>
-        <a href="research.html">Research &amp; Construction</a>
     </nav>
 </header>
 
@@ -331,6 +277,7 @@
                     <button class="btn-toggle" onclick="selectTier(this, 'T2', 0)">T2</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T3', 0)">T3</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T4', 0)">T4</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T5', 0)">T5</button>
                 </div>
             </div>
 
@@ -350,16 +297,14 @@
                     <input type="number" class="input-field" id="troops1" data-translate-placeholder-key="enter_troops_placeholder" value="1000" min="0">
                 </div>
                 <div class="input-group">
-                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)
-                    </label>
-                    <input type="number" class="input-field" id="trainingSpeed1" placeholder="0" value="0" min="0" max="1000">
+                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)</label>
+                    <input type="number" class="input-field" id="trainingSpeed1" placeholder="0" value="0" min="0">
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)
-                    </label>
+                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)</label>
                     <input type="number" class="input-field" id="subsidy1" placeholder="0" value="0" min="0" max="100">
                 </div>
             </div>
@@ -374,6 +319,7 @@
                     <button class="btn-toggle" onclick="selectTier(this, 'T2', 1)">T2</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T3', 1)">T3</button>
                     <button class="btn-toggle" onclick="selectTier(this, 'T4', 1)">T4</button>
+                    <button class="btn-toggle" onclick="selectTier(this, 'T5', 1)">T5</button>
                 </div>
             </div>
 
@@ -393,16 +339,14 @@
                     <input type="text" class="input-field" id="speedups2" data-translate-placeholder-key="speedups_placeholder" value="0d4h10m">
                 </div>
                 <div class="input-group">
-                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)
-                    </label>
-                    <input type="number" class="input-field" id="trainingSpeed2" placeholder="0" value="0" min="0" max="1000">
+                    <label class="input-label" data-translate-key="training_speed">Training Speed (%)</label>
+                    <input type="number" class="input-field" id="trainingSpeed2" placeholder="0" value="0" min="0">
                 </div>
             </div>
 
             <div class="input-row">
                 <div class="input-group">
-                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)
-                    </label>
+                    <label class="input-label" data-translate-key="subsidy">Subsidy (%)</label>
                     <input type="number" class="input-field" id="subsidy2" placeholder="0" value="0" min="0" max="100">
                 </div>
             </div>
@@ -446,6 +390,10 @@
                     <div class="result-label" data-translate-key="gold_required">Gold Required</div>
                     <div class="result-value" id="goldResult">0</div>
                 </div>
+                <div class="result-item lunite" id="luniteItem" style="display:none;">
+                    <div class="result-label">Lunite Required</div>
+                    <div class="result-value" id="luniteResult">0</div>
+                </div>
             </div>
             <div class="info-text" data-translate-key="calculation_info">* All calculations based on current input values</div>
         </div>
@@ -457,15 +405,16 @@
 </footer>
 
 <script>
-    let currentTab = 0; // 0 for Speed Ups, 1 for Troops
-    let selectedTier = ['T1', 'T1']; // For tab 1 and tab 2 respectively
-    let selectedType = ['Infantry', 'Infantry']; // For tab 1 and tab 2 respectively
+    let currentTab = 0;
+    let selectedTier = ['T1', 'T1'];
+    let selectedType = ['Infantry', 'Infantry'];
 
     const baseData = {
-        T1: { food: 30, wood: 30, stone: 30, ore: 30, gold: 0, time: 15 },
-        T2: { food: 60, wood: 60, stone: 60, ore: 60, gold: 3, time: 30 },
-        T3: { food: 105, wood: 105, stone: 105, ore: 105, gold: 7, time: 60 },
-        T4: { food: 700, wood: 700, stone: 700, ore: 700, gold: 350, time: 120 }
+        T1: { food: 50, wood: 50, stone: 50, ore: 50, gold: 0, time: 15 },
+        T2: { food: 100, wood: 100, stone: 100, ore: 100, gold: 5, time: 30 },
+        T3: { food: 150, wood: 150, stone: 150, ore: 150, gold: 10, time: 60 },
+        T4: { food: 1000, wood: 1000, stone: 1000, ore: 1000, gold: 500, time: 120 },
+        T5: { food: 1000, wood: 1000, stone: 1000, ore: 1000, gold: 500, lunite: 40, time: 0 } // T5 is upgraded from T4
     };
 
     function switchTab(tabIndex) {
@@ -505,185 +454,122 @@
     }
 
     function parseTime(timeStr) {
-        // Parse format like "1d2h30m"
         const dayMatch = timeStr.match(/(\d+)d/);
         const hourMatch = timeStr.match(/(\d+)h/);
         const minMatch = timeStr.match(/(\d+)m/);
-        
-        const days = dayMatch ? parseInt(dayMatch[1]) : 0;
-        const hours = hourMatch ? parseInt(hourMatch[1]) : 0;
-        const minutes = minMatch ? parseInt(minMatch[1]) : 0;
-        
-        return days * 86400 + hours * 3600 + minutes * 60;
+        return (dayMatch ? parseInt(dayMatch[1]) : 0) * 86400 + 
+               (hourMatch ? parseInt(hourMatch[1]) : 0) * 3600 + 
+               (minMatch ? parseInt(minMatch[1]) : 0) * 60;
     }
 
     function applyResourceExceptions(resources, type) {
         const res = { ...resources };
-        if (type === 'Infantry') {
-            res.wood = 0;
-        } else if (type === 'Cavalry') {
-            res.wood = 0;
+        if (type === 'Infantry' || type === 'Cavalry') {
+            res.stone = 0;
         } else if (type === 'Ranged') {
             res.ore = 0;
         }
+        // Siege uses all resources
         return res;
+    }
+
+    function calculateGemsFromTime(seconds) {
+        // Approximate gem cost for training speedups
+        // 1 min = ~1.5 gems is very rough. Actual LM gems scale.
+        // For a more accurate LM-like feel:
+        const minutes = seconds / 60;
+        if (minutes <= 0) return 0;
+        if (minutes <= 60) return Math.ceil(minutes * 2.5);
+        if (minutes <= 1440) return Math.ceil(minutes * 1.5);
+        return Math.ceil(minutes * 1.2);
     }
 
     function calculate() {
         const resultsSection = document.getElementById('resultsSection');
+        const tier = selectedTier[currentTab];
+        const type = selectedType[currentTab];
+        const base = baseData[tier];
         
         try {
+            let troops = 0;
+            let actualTime = 0;
+            let subsidy = 0;
+            let trainingSpeed = 0;
+
             if (currentTab === 0) {
-                // Calculate Speed Ups needed
-                const troops = parseInt(document.getElementById('troops1').value) || 0;
-                const trainingSpeed = parseFloat(document.getElementById('trainingSpeed1').value) || 0;
-                const subsidy = parseFloat(document.getElementById('subsidy1').value) || 0;
-                
-                if (troops <= 0) {
-                    alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_valid_troops"]);
-                    return;
-                }
-                
-                const tier = selectedTier[0];
-                const type = selectedType[0];
-                const baseResources = baseData[tier];
-                
-                // Calculate training time
-                const totalBaseTime = baseResources.time * troops;
-                const actualTime = totalBaseTime / (1 + trainingSpeed / 100);
-                
-                // Calculate resources
-                let resources = {
-                    food: baseResources.food * troops,
-                    wood: baseResources.wood * troops,
-                    stone: baseResources.stone * troops,
-                    ore: baseResources.ore * troops,
-                    gold: baseResources.gold * troops
-                };
-                
-                resources = applyResourceExceptions(resources, type);
-                
-                // Apply subsidy
-                resources.food = Math.ceil(resources.food * (1 - subsidy / 100));
-                resources.wood = Math.ceil(resources.wood * (1 - subsidy / 100));
-                resources.stone = Math.ceil(resources.stone * (1 - subsidy / 100));
-                resources.ore = Math.ceil(resources.ore * (1 - subsidy / 100));
-                resources.gold = Math.ceil(resources.gold * (1 - subsidy / 100));
-                
-                // Calculate gems (1 gem = 1.5 minutes)
-                const totalMinutes = actualTime / 60;
-                const gems = Math.ceil(totalMinutes / 1.5);
-                
-                // Display results
-                document.getElementById('gemsResult').textContent = gems.toLocaleString();
-                document.getElementById('speedupResult').textContent = formatTime(actualTime);
-                document.getElementById('foodResult').textContent = resources.food.toLocaleString();
-                document.getElementById('woodResult').textContent = resources.wood.toLocaleString();
-                document.getElementById('stoneResult').textContent = resources.stone.toLocaleString();
-                document.getElementById('oreResult').textContent = resources.ore.toLocaleString();
-                document.getElementById('goldResult').textContent = resources.gold.toLocaleString();
-                
+                troops = parseInt(document.getElementById('troops1').value) || 0;
+                trainingSpeed = parseFloat(document.getElementById('trainingSpeed1').value) || 0;
+                subsidy = parseFloat(document.getElementById('subsidy1').value) || 0;
+                if (troops <= 0) return alert("Please enter a valid number of troops");
+                actualTime = (base.time * troops) / (1 + trainingSpeed / 100);
             } else {
-                // Calculate Troops from Speed Ups
                 const speedupStr = document.getElementById('speedups2').value || '0d0h0m';
-                const trainingSpeed = parseFloat(document.getElementById('trainingSpeed2').value) || 0;
-                const subsidy = parseFloat(document.getElementById('subsidy2').value) || 0;
-                
+                trainingSpeed = parseFloat(document.getElementById('trainingSpeed2').value) || 0;
+                subsidy = parseFloat(document.getElementById('subsidy2').value) || 0;
                 const speedupSeconds = parseTime(speedupStr);
-                
-                const tier = selectedTier[1];
-                const type = selectedType[1];
-                const baseResources = baseData[tier];
-                const baseTime = baseResources.time;
-                
-                // Calculate troops: actualTime = totalBaseTime / (1 + trainingSpeed/100)
-                // totalBaseTime = baseTime * troops
-                // troops = actualTime * (1 + trainingSpeed/100) / baseTime
-                const troops = Math.floor(speedupSeconds * (1 + trainingSpeed / 100) / baseTime);
-                
-                if (troops <= 0) {
-                    alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_invalid_speedup_format"]);
+                if (speedupSeconds <= 0 && tier !== 'T5') return alert("Please enter valid speed ups");
+                actualTime = speedupSeconds;
+                if (tier === 'T5') {
+                    // T5 training is instant but requires Luminous Gear
+                    troops = 0; // Requires user to input number of troops for T5 in this calculator
+                    alert("T5 training is instant but requires Luminous Gear. Please use 'No. of Troops' tab for T5.");
                     return;
                 }
-                
-                // Calculate resources
-                let resources = {
-                    food: baseResources.food * troops,
-                    wood: baseResources.wood * troops,
-                    stone: baseResources.stone * troops,
-                    ore: baseResources.ore * troops,
-                    gold: baseResources.gold * troops
-                };
-                
-                resources = applyResourceExceptions(resources, type);
-                
-                // Apply subsidy
-                resources.food = Math.ceil(resources.food * (1 - subsidy / 100));
-                resources.wood = Math.ceil(resources.wood * (1 - subsidy / 100));
-                resources.stone = Math.ceil(resources.stone * (1 - subsidy / 100));
-                resources.ore = Math.ceil(resources.ore * (1 - subsidy / 100));
-                resources.gold = Math.ceil(resources.gold * (1 - subsidy / 100));
-                
-                // Calculate gems
-                const totalMinutes = speedupSeconds / 60;
-                const gems = Math.ceil(totalMinutes / 1.5);
-                
-                // Display results
-                document.getElementById('gemsResult').textContent = gems.toLocaleString();
-                document.getElementById('speedupResult').textContent = formatTime(speedupSeconds);
-                document.getElementById('foodResult').textContent = resources.food.toLocaleString();
-                document.getElementById('woodResult').textContent = resources.wood.toLocaleString();
-                document.getElementById('stoneResult').textContent = resources.stone.toLocaleString();
-                document.getElementById('oreResult').textContent = resources.ore.toLocaleString();
-                document.getElementById('goldResult').textContent = resources.gold.toLocaleString();
+                troops = Math.floor(speedupSeconds * (1 + trainingSpeed / 100) / base.time);
             }
+
+            let resources = {
+                food: base.food * troops,
+                wood: base.wood * troops,
+                stone: base.stone * troops,
+                ore: base.ore * troops,
+                gold: base.gold * troops,
+                lunite: (base.lunite || 0) * troops
+            };
+
+            resources = applyResourceExceptions(resources, type);
+            const multiplier = (1 - subsidy / 100);
+            ['food', 'wood', 'stone', 'ore', 'gold'].forEach(k => {
+                resources[k] = Math.ceil(resources[k] * multiplier);
+            });
+
+            document.getElementById('gemsResult').textContent = calculateGemsFromTime(actualTime).toLocaleString();
+            document.getElementById('speedupResult').textContent = formatTime(actualTime);
+            document.getElementById('foodResult').textContent = resources.food.toLocaleString();
+            document.getElementById('woodResult').textContent = resources.wood.toLocaleString();
+            document.getElementById('stoneResult').textContent = resources.stone.toLocaleString();
+            document.getElementById('oreResult').textContent = resources.ore.toLocaleString();
+            document.getElementById('goldResult').textContent = resources.gold.toLocaleString();
             
+            const luniteItem = document.getElementById('luniteItem');
+            if (tier === 'T5') {
+                luniteItem.style.display = 'block';
+                document.getElementById('luniteResult').textContent = resources.lunite.toLocaleString();
+            } else {
+                luniteItem.style.display = 'none';
+            }
+
             resultsSection.classList.add('show');
         } catch (error) {
-            alert(translations[localStorage.getItem("selectedLanguage") || "en"]["alert_calculation_error"]);
+            alert("Calculation error. Please check your inputs.");
             console.error(error);
         }
     }
 
     function clearAll() {
-        // Clear Tab 1
         document.getElementById('troops1').value = '1000';
         document.getElementById('trainingSpeed1').value = '0';
         document.getElementById('subsidy1').value = '0';
-        
-        // Clear Tab 2
         document.getElementById('speedups2').value = '0d4h10m';
         document.getElementById('trainingSpeed2').value = '0';
         document.getElementById('subsidy2').value = '0';
-        
-        // Reset selections
-        selectedTier = ['T1', 'T1'];
-        selectedType = ['Infantry', 'Infantry'];
-        
-        // Reset buttons
-        document.querySelectorAll('#tierGroup1 .btn-toggle').forEach((btn, i) => {
-            btn.classList.toggle('selected', i === 0);
-        });
-        document.querySelectorAll('#typeGroup1 .btn-toggle').forEach((btn, i) => {
-            btn.classList.toggle('selected', i === 0);
-        });
-        document.querySelectorAll('#tierGroup2 .btn-toggle').forEach((btn, i) => {
-            btn.classList.toggle('selected', i === 0);
-        });
-        document.querySelectorAll('#typeGroup2 .btn-toggle').forEach((btn, i) => {
-            btn.classList.toggle('selected', i === 0);
-        });
-        
-        // Hide results
         document.getElementById('resultsSection').classList.remove('show');
     }
 
     function toggleMenu() {
         document.getElementById('navLinks').classList.toggle('active');
     }
-
 </script>
 <script src="translations.js"></script>
-
 </body>
 </html>
