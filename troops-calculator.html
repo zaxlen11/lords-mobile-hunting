@@ -485,6 +485,66 @@
             transition: all 0.3s ease;
         }
 
+        .resources-section {
+            background: var(--glass-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .resources-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-item {
+            background: var(--glass-light);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .resource-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .resource-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Courier New', monospace;
+        }
+
         .result-item:hover {
             border-color: var(--accent-gold);
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
@@ -504,6 +564,12 @@
             font-weight: 700;
             color: var(--accent-gold);
             font-family: 'Courier New', monospace;
+        }
+
+        .result-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
         }
 
         footer {
@@ -1067,6 +1133,42 @@
                     <div class="result-value" id="result-total">0</div>
                 </div>
             </div>
+
+            <div class="resources-section">
+                <div class="resources-title">📦 Resources & Gems Required</div>
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <div class="resource-icon">🌾</div>
+                        <div class="resource-label">Food</div>
+                        <div class="resource-value" id="resource-food">0</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon">🪵</div>
+                        <div class="resource-label">Timber</div>
+                        <div class="resource-value" id="resource-timber">0</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon">⛏️</div>
+                        <div class="resource-label">Stone</div>
+                        <div class="resource-value" id="resource-stone">0</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon">⚙️</div>
+                        <div class="resource-label">Ore</div>
+                        <div class="resource-value" id="resource-ore">0</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon">💰</div>
+                        <div class="resource-label">Gold</div>
+                        <div class="resource-value" id="resource-gold">0</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon">💎</div>
+                        <div class="resource-label">Gems</div>
+                        <div class="resource-value" id="resource-gems">0</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer>
@@ -1119,6 +1221,61 @@
             document.getElementById('results').classList.remove('show');
         }
 
+        // Troop resource costs per 1000 troops
+        const troopCosts = {
+            't1-grunt': { food: 50, timber: 50, stone: 0, ore: 50, gold: 0, gems: 382 },
+            't1-archer': { food: 50, timber: 50, stone: 0, ore: 50, gold: 0, gems: 382 },
+            't1-cataphract': { food: 50, timber: 50, stone: 0, ore: 50, gold: 0, gems: 382 },
+            't1-ballista': { food: 50, timber: 50, stone: 50, ore: 50, gold: 0, gems: 382 },
+            't2-gladiator': { food: 100, timber: 100, stone: 0, ore: 100, gold: 5, gems: 667 },
+            't2-sharpshooter': { food: 100, timber: 100, stone: 0, ore: 100, gold: 5, gems: 667 },
+            't2-reptilian-rider': { food: 100, timber: 100, stone: 0, ore: 100, gold: 5, gems: 667 },
+            't2-catapult': { food: 100, timber: 100, stone: 100, ore: 100, gold: 5, gems: 667 },
+            't3-royal-guard': { food: 150, timber: 150, stone: 0, ore: 150, gold: 10, gems: 1090 },
+            't3-stealth-sniper': { food: 150, timber: 150, stone: 0, ore: 150, gold: 10, gems: 1090 },
+            't3-royal-cavalry': { food: 150, timber: 150, stone: 0, ore: 150, gold: 10, gems: 1090 },
+            't3-fire-trebuchet': { food: 150, timber: 150, stone: 150, ore: 150, gold: 10, gems: 1090 },
+            't4-heroic-fighter': { food: 1000, timber: 1000, stone: 0, ore: 1000, gold: 500, gems: 2060 },
+            't4-heroic-cannoneer': { food: 1000, timber: 1000, stone: 0, ore: 1000, gold: 500, gems: 2060 },
+            't4-ancient-drake-rider': { food: 1000, timber: 1000, stone: 0, ore: 1000, gold: 500, gems: 2060 },
+            't4-destroyer': { food: 1000, timber: 1000, stone: 1000, ore: 1000, gold: 500, gems: 2060 }
+        };
+
+        function calculateResourceCosts() {
+            let totalResources = {
+                food: 0,
+                timber: 0,
+                stone: 0,
+                ore: 0,
+                gold: 0,
+                gems: 0
+            };
+
+            // Calculate resources for all troops
+            for (const [troopId, costs] of Object.entries(troopCosts)) {
+                const input = document.getElementById(`input-${troopId}`);
+                if (input) {
+                    const count = parseInt(input.value) || 0;
+                    // Count is in thousands, so divide by 1000 to get multiplier
+                    const multiplier = count / 1000;
+                    totalResources.food += costs.food * multiplier;
+                    totalResources.timber += costs.timber * multiplier;
+                    totalResources.stone += costs.stone * multiplier;
+                    totalResources.ore += costs.ore * multiplier;
+                    totalResources.gold += costs.gold * multiplier;
+                    totalResources.gems += costs.gems * multiplier;
+                }
+            }
+
+            // Update resource display
+            document.getElementById('resource-food').textContent = Math.round(totalResources.food).toLocaleString();
+            document.getElementById('resource-timber').textContent = Math.round(totalResources.timber).toLocaleString();
+            document.getElementById('resource-stone').textContent = Math.round(totalResources.stone).toLocaleString();
+            document.getElementById('resource-ore').textContent = Math.round(totalResources.ore).toLocaleString();
+            document.getElementById('resource-gold').textContent = Math.round(totalResources.gold).toLocaleString();
+            document.getElementById('resource-gems').textContent = Math.round(totalResources.gems).toLocaleString();
+        }
+
         function calculateTotals() {
             const tiers = {
                 t1: ['t1-grunt', 't1-archer', 't1-cataphract', 't1-ballista'],
@@ -1143,6 +1300,9 @@
             document.getElementById('result-t3').textContent = totals.t3.toLocaleString();
             document.getElementById('result-t4').textContent = totals.t4.toLocaleString();
             document.getElementById('result-total').textContent = grandTotal.toLocaleString();
+
+            // Calculate and display resources
+            calculateResourceCosts();
 
             document.getElementById('results').classList.add('show');
         }
@@ -1171,6 +1331,10 @@
                     data[troopId] = parseInt(input.value) || 0;
                 });
                 localStorage.setItem('troopsCalculatorData', JSON.stringify(data));
+                // Update resources dynamically as user changes inputs
+                if (document.getElementById('results').classList.contains('show')) {
+                    calculateResourceCosts();
+                }
             }
         });
     </script>
